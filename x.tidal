@@ -1,0 +1,906 @@
+hush
+
+-- Set cps to be a fast house beat
+-- default is (135/60/4)
+setcps (135/60/4)
+
+-- tasty
+d1 $ n "<0(3,8), [<8 9 10>(2,5) <4 [~ 3*3] 4 ~ [~ 4(6,7)] ~ 3>]>" # s "cpu"
+
+-- hi-hat pattern
+-- classic pattern names are d1 to d16
+d2 $ s "[~ hh]*2"
+
+-- patterns by number
+p 1234 $ s "bd bd"
+
+p 4321 $ s "hh hh"
+
+once $ s "trump"
+
+d1 $ note "2 3" %| "4 5 6" # s "trump"
+
+d1 $ sound "drum" |+| n "1 2 3"
+
+d1 $ sound "drum" |+| n "2 3" |+| n "4 5 6"
+
+d1 $ sound "drum" |+| n "6 [7 8] 9"
+
+d1 $ s "bd sd . hh(<3 <7 4> 3 <7 11 15>>,17) . bd:5([7, <3 2>],17)"
+
+d1 $ s "superpiano@3 superpiano"
+
+d1 $ s "bd/2"
+
+d1 $ s "[bd |cp |hh]"
+
+d1 $ cat ["bd!3 sd","bd!4 sd", "bd!5 sd"]
+
+d1 $ euclid 3 8 $ s "bd"
+
+d1 $ s "{bd bd bd bd, cp cp hh}"
+
+d1 $ s "{bd cp hh hh}%7"
+
+d1 $ s "[bd [hh [cp <sn:2 sn:4 sn:5>] hh]] bd bd bd"
+
+d1 $ note "[[c7*3],[c e g c6*3]]" # s "superpiano"
+
+d1 $ fast "3 4 5" $ n "<c e g e f>" # s "superpiano"
+
+d2 $ s "bd <[hh sn] [hh cp]>"
+
+d2 $ s "bd _ _ hh*4"
+
+d1 $ s "[bd(5,8), cp(1,8)?, hh(7,8), bass:4(8,16)]"
+
+d1 $ s "cpu(5,9)"
+
+d1 $ sound "hh*8" # pan sine
+
+d1 $ sound "bd*8" # pan cosine # squiz (range 0 1 sine) # speed (sine + 0.5)
+
+d1 $ sound "bd*8" # pan (cat [square, sine])
+
+d1 $ sound "bd*16" # speed (slow 2 $ range 0.5 2 (cat [square, tri]))
+
+d1 $ sound "bd*8" # pan (slow 2 saw)
+
+d1 $ sound "drum*8" # n (irand 3)
+
+d1 $ s "bass*8" # lpf (range 200 5000 $ sine) # (slow 2 $ n "1 2 3") # hpf (range 0 225 $ cosine)
+
+d2 $ s "break*8" # lpf (range 200 5000 $ sine) # (slow 2 $ n "1 2(2,5) 3 1 3(2,5) 2") # hpf (range 0 225 $ cosine) # legato 1.5 # speed (slow 3 $ range 0.5 2 sine)
+
+-- getting tasty, manipulating speed with layered modulation
+d1 $ n "<0 1 0 2>(3,8) . 0(2,5)" # s "cpu2" # speed "0.5 2 0.5 2 0.7" |+ (fast 4 $ range 0.1 0.3 sine)
+
+d1 $ s "[bshihat(7,8), bsperc(9,13)]" # octer "0.2 0.1 0.3" # delay 0.2 # delayt "1.5 0.5" # delayfb "0.2 0.1 0.1 0" # phaserrate 3 # phaserdepth 1
+
+-- dark thanks to djf
+d1 $ s "bd*4" # freeze (range 0 0.3 (slow 4 $ sine)) # djf 0.2 # vowel "a e i o u"
+
+d2 $ s "~ <clap(3,8) clap(5,7) cpu*3>" # n "<0 1 [2 3] 3 [0 2 0 4] 7>"
+
+d1 $ s "super808*4" # n "0 0 0 <0.2 0.2 0.3 0.5>"
+
+d2 $ s "[ ~ soshats ]*<4 4 4 13>" # djf "0.5 0.7 0.8" # lpf (range 2000 3000 (slow 3 $ tri))
+
+d3 $ s "sostoms(7,16,<2 2 2 7>)" # (slow 3 $ note "c e f g")
+
+-- hardcore audio input stuff
+d1 $ s "in . bd" # lpf (range 1000 5000 (slow 3 $ saw)) # delay 0.5 # delayt 1.5 # delayfb 0.2
+
+-- some effects
+d2 $ s "cpu(5,9)" # triode (slow 8 $ (range 0.1 0.5 sine)) # lpf 3000 # legato 1 # waveloss "1 20 1 50" # orbit 2
+
+d1 $ s "hh*8" # enhance sine
+
+d1 $ note "c d e f g a"
+   # sound "<superpiano supersquare supersaw>"
+
+d1 $ s " bd hh bd hh*2" # lpf "500 1000 1500" # lpq 0.5
+
+d1 $ note "c d e f g a"
+   # sound "<superpiano supersquare supersaw>"
+   # lpf "500 1000 1500"
+   # lpq 0.5
+
+d1 $ s "bd(3,8) drum*4"
+
+xfade 1 $ s "arpy*8" # n (run 8)
+
+xfadeIn 1 16 $ s "arpy*8" # n (run 8)
+
+d1 $ slow 2 $ sound "alphabet(5,8)" # n "0 .. 4"
+
+d1 $ sound "superpiano(5,<7 8 9>)" # nTake "bill" [0 .. 6]
+
+d1 $ sound "alphabet(5,8)" # nCount "harold"
+
+setF "harold" 0
+
+d1 $ s "bd bd ~ bd ~"
+
+d1 $ s "bd(3,5)"
+
+setF "rachel" 0
+
+d1 $ struct "t(7,12,3)" $
+  sound "gretsch"
+  # nCountTo "rachael" "<6 7 6 5 13>"
+
+d2 $ sound "cpu(<3@5 5>,12,3)" # n "<0@5 1>"
+
+d1 $ cat [sound "bd*2 sn", sound "jvbass*3", sound "drum*2", sound "ht mt"]
+
+d1 $ wedge (1/4) (sound "bd*2 arpy*3 cp sn*2") (sound "odx [feel future]*2 hh hh")
+
+d1 $ brak $ sound "[feel feel:3, hc:3 hc:2 hc:4 ho:1]"
+
+d1 $ n ("[0,4,7] [-12,-8,-5]") # s "superpiano" # sustain 2
+
+d1 $ every 4 (rev) $ n (run 8) # sound "amencutup" # legato 1
+
+d1 $ sound (overlay "[bd sn:2]*2"  "[~ <mt lt>]*4")
+
+d1 $ stack [ 
+  sound "bd bd*2", 
+  sound "hh*2 [sn cp] cp future*4", 
+  sound "arpy" +| n "0 .. 15"
+]
+
+d1 $ whenmod 5 3 (striate 3) $ stack [ 
+  sound "bd bd*2", 
+  sound "hh*2 [sn cp] cp future*4", 
+  sound "arpy" +| n "0 .. 15"
+] # speed "[[1 0.8], [1.5 2]*2]/3"
+
+d1 $ superimpose (fast 2) $ sound "bd sn [cp ht] hh"
+
+d1 $ layer [rev, fast 2] $ sound "arpy [~ arpy:4]"
+
+d1 $ layer [id, rev, fast 2] $ sound "arpy [~ arpy:4]"
+
+d1 $ s (steps [("cp","x  x x  x x  x"),("bd", "xxxx")])
+
+d1 $ s (step "cp" "xx xx x")
+
+d1 $ iter 4 $ sound "bd hh sn cp"
+
+d1 $ iter' 4 $ sound "bd hh sn cp"
+
+d1 $ jux (iter 4) $ sound "arpy arpy:2*2"
+  |+ speed (slow 4 $ range 1 1.5 sine)
+
+-- # lpf (rangex 20 2000 0.5 sine)
+
+quantise 5 [0, 1.3,2.6,3.2,4.7,5]
+
+d1 $ slow 2 $ degrade $ sound "[[[feel:5*8,feel*3] feel:3*8], feel*4]"
+   # accelerate "-6"
+   # speed "2"
+
+d1 $ ply 3 $ s "bd ~ sn cp"
+
+d1 $ every 3 (ply 4) $ s "bd ~ sn cp"
+
+d1 $ stutter 4 (1/16) $ s "bd cp"
+
+d1 $ stut 4 "0.1 0.1 0.5" (1/16) $ s "bd cp"
+
+d1 $ triple 0.2 $ "bd cp"
+
+d1 $ stripe 3 $ sound "bd sd ~ [mt ht]"
+
+d1 $ slowstripe 3 $ sound "bd sd ~ [mt ht]"
+
+d2 $ s "clap"
+
+d1 $ palindrome $ sound "arpy:0 arpy:1 arpy:2 arpy:3"
+
+d1 $ every 3 rev $ sound "arpy:0 arpy:1 arpy:2 arpy:3"
+
+d1 $ trunc 0.5 $ sound "bd sn*2 cp hh*4 arpy bd*2 cp bd*2"
+
+d1 $ linger 0.25 $ n "0 2 [3 4] 2" # sound "arpy"
+
+d1 $ every 4 (linger 0.25) $ n "0 2 [3 4] 2" # sound "arpy"
+
+d3 $ every 2 (jux rev) $ every 3 (linger 0.5) $ loopAt 1 $ chop 8 $ sound "breaks125"
+
+d1 $ linger "<0.75 0.25 1>" $ sound "bd sn:2 [mt rs] hc"
+
+d2 $ linger "<0.25 0.5 1>" $ loopAt 2 $ chop 8 $ sound "breaks125"
+
+d1 $ chunk 8 (# speed (range 0.1 0.5 sine)) $ sound "bd(3,8) hh sn(2,7) cp:7"
+
+d1 $ chunk 4 (hurry 2) $ sound "bd sn:2 [~ bd] sn:2"
+
+d1 $ bite 4 "0 1 2 3" $ n "0 .. 7" # sound "arpy"
+
+d1 $ bite 4 "2 0 1 3" $ n "0 .. 7" # sound "arpy"
+
+d1 $ bite 4 "2 [0 3] 1*4 1" $ n "0 .. 7" # sound "arpy"
+
+d1 $ sound $ shuffle 3 "bd sn hh"
+
+d1 $ sound $ scramble 3 "bd sn hh"
+
+-- very cool
+d1 $ rot "<0 0 1 3>" $ n "0 ~ 1 2 0 2 ~ 3*2" # sound "drum"
+
+d1 $ s (step "sn" "x x 12 ")
+
+d1 $ s (step' ["superpiano","supermandolin"] "0 1 000 1") # sustain 4 # n 0
+
+d1 $ slow 16 $ sound $ step' ["feel:0", "sn:1", "bd:0"]
+(take 512 $ lindenmayer 5 "0:1~~~,1:0~~~2~~~~~0~~~2~,2:2~1~,~:~~1~"
+"0")
+
+d1 $ sound "ho ho:2 ho:3 hc"
+
+d1 $ fast 2 $ sound "ho ho:2 ho:3 hc"
+
+d1 $ fast 3 $ sound "ho ho:2 ho:3 hc"
+
+d1 $ spread fast[2,3] $ sound "ho ho:2 ho:3 hc"
+
+d1 $ fast "<2 3>" $ sound "ho ho:2 ho:3 hc"
+
+d1 $ spread ($) [density 2, rev, slow 2, striate 3, (# speed "0.8")] $ sound "[bd*2 [~ bd]] [sn future]*2 cp jvbass*4"
+
+d1 $ spreadf [density 2, rev, slow 2, striate 3, (# speed "0.8")] $ sound "[bd*2 [~ bd]] [sn future]*2 cp jvbass*4"
+
+d1 $ spread ($) [gap 4, striate 4] $ sound "ho ho:2 ho:3 hc"
+
+d1 $ fastspread ($) [gap 4, striate 4] $ sound "ho ho:2 ho:3 hc"
+
+d1 $ spreadChoose ($) [gap 4, striate 4] $ sound "ho ho:2 ho:3 hc"
+
+d1 $ spreadr ($) [gap 4, striate 4] $ sound "ho ho:2 ho:3 hc"
+
+d1 $ when ((elem '4').show) (striate 4) $ sound "hh hc"
+
+d1 $ whenmod 8 4 (fast 2) (sound "bd sn kurt")
+
+d1 $ sometimes (# crush 2) $ n "0 1 [~ 2] 3" # sound "arpy"
+
+d1 $ someCycles (# crush 2) $ n "0 1 [~ 2] 3" # sound "arpy"
+
+d1 $ someCyclesBy 0.93 (# crush 2) $ n "0 1 [~ 2] 3" # sound "arpy"
+
+d1 $ sound "drum ~ drum drum" # n (choose [0,2,3])
+
+d1 $ sound "drum ~ drum drum" # n (wchoose [(0,0.25),(2,0.5),(3,0.25)])
+
+d1 $ sound "drum ~ drum drum" # n (cycleChoose [0,2,3])
+
+d1 $ struct ("t ~ t*2 ~") $ sound "cp"
+
+d1 $ struct ("t f t*2 f") $ sound "cp"
+
+d1 $ struct (every 3 inv "t f t*2 f") $ sound "cp"
+
+d1 $ struct (every 3 inv "t(3,8)") $ sound "cp"
+
+d1 $ sound (cat ["sn*8", "[cp*4 bd*4, hc*5]"]) # n (run 8)
+
+d1 $ mask "t t t ~ t t ~ t"
+  $ s (cat ["sn*8", "[cp*4 bd*4, bass*5]"])
+  # n (run 8)
+
+d1 $ mask "1 ~ 1 ~ 1 1 ~ 1"
+  $ s (cat ["can*8", "[cp*4 sn*4, jvbass*16]"])
+  # n (run 8)
+
+d1 $ sound (sew "t f" "bd*8" "cp*8")
+
+d1 $ sew "t <f t> <f [f t] t>" (n "0 .. 15" # s "future") (s "cp:3*16" # speed saw + 1.2)
+
+n "0 .. 15"
+
+d1 $ ccv (stitch "t(7,16)" 127 0) # ccn 0  # "midi"
+
+d1 $ euclid 3 8 $ sound "cp"
+
+d1 $ euclid "<3 5>" "[8 16]/4" $ s "bd"
+
+d1 $ euclidFull 5 8 (s "bd") (s "hh27")
+
+d1 $ contrast (|+ n 12) (|- n 12) (n "c") $ n (run 4) # s "superpiano"
+
+d1 $ contrast (|+ n 12) (|- n 12) (s "<superpiano superchip>") $ s "superpiano superchip" # n 0
+
+d1 $ ifp ((== 0).(flip mod 2))
+  (striate 4)
+  (# coarse "24 48") $
+  sound "hh hc"
+
+d1 $ sound (fast 2 "bd sn kurt")
+   # fast 3 (vowel "a e o")
+
+d1 $ fast "2 4" $ sound "bd sn kurt cp"
+
+d1 $ sound (fastGap 2 "bd sn")
+
+d1 $ sound (slow 2 "bd sn kurt")
+   # slow 3 (vowel "a e o")
+
+d1 $ every 2 (hurry 2) $ sound "bd sn:2 ~ cp"
+
+d1 $ slow "<2 4>" $ s "bd*8"
+
+d1 $ slowSqueeze "<2 4>" $ s "bd*8"
+
+d1 $ slowSqueeze "2 4 8 16" $ s "bd*8"
+
+d1 $ slowSqueeze "2 4 [8 16]" $ s "bd*8"
+
+d1 $ fast "1 2" $ s "bd sn"
+
+d1 $ fastSqueeze "1 2" $ s "bd sn"
+
+d1 $ compress (1/4, 3/4) $ s "[bd sn]?!!!!"
+
+d1 $ compress (1/4, 3/4) $ n (run 4) # s "arpy"
+
+d1 $ zoom (0.25, 0.75) $ sound "bd*2 hh*3 [sn bd]*2 drum"
+
+d1 $ every 4 (zoom (0.25, 0.75)) $ sound "bd*2 hh*3 [sn bd]*2 drum"
+
+d1 $ within (0, 0.5) (fast 2) $ sound "bd*2 sn lt mt hh hh hh hh"
+
+d1 $ within (0.75, 1.0) (# speed "0.5") $ sound "bd*2 sn lt mt hh hh hh hh"
+
+d1 $ sound "bd [~ sn:2] mt lt*2"
+
+d1 $ off 0.125 (# crush (range 2 10 (slow 2 $ tri))) $ sound "bd [~ sn:2] mt lt*2"
+
+d1 $ slow 2 $ 
+  n (off 0.25 (+12) $ off 0.125 (+7) $ slow 2 "c(3,8) a(3,8,2) f(3,8) e(3,8,4)") 
+  # sound "superpiano"
+
+do
+{
+  resetCycles;
+  d1 $ rotL 0 $ seqP [ 
+    (0, 12, sound "bd bd*2"), 
+    (4, 12, sound "hh*2 [sn cp] cp future*4"), 
+    (8, 12, sound (samples "arpy*8" (run 16)))
+  ]
+}
+
+d1 $ slow 3 $ spin 4 $ sound "drum*3 tabla:4 [arpy:2 ~ arpy] [can:2 can:3]"
+
+d1 $ weave 16 (pan sine)
+  [sound "bd sn cp",
+   sound "casio casio:1",
+   sound "[jvbass*2 jvbass:2]/2",
+   sound "hc*4"
+  ]
+
+d1 $ weave 16 (sound "arpy" >| n (run 8))
+  [vowel "a e i",
+   vowel "i [i o] o u",
+   vowel "[e o]/3 [i o u]/2",
+   speed "1 2 3"
+  ]
+
+d1 $ weaveWith 3 (sound "bd [sn drum:2*2] bd*2 [sn drum:1]")
+  [fast 2, 
+   (# speed "0.5"),
+   chop 16
+  ]
+
+d1 $ every 3 rev $ n "0 1 [~ 2] 3" # sound "arpy"
+
+d1 $ jux rev $ n (iter 4 "0 1 [~ 2] 3") # sound "arpy"
+
+d1 $ slow 32 $ jux (rev) $ striate' 32 (1/16) $ sound "bev"
+
+d1 $ slow 32 $ jux ((# speed "0.5") . rev) $ striate' 32 (1/16) $ sound "bev"
+
+d1 $ juxBy 0.5 (fast 2) $ sound "bd sn:1"
+
+d1 $ swingBy (1/3) 4 $ sound "hh*8"
+
+d1 $ stack [ ghost $ sound "~ sn", sound "bd*2 [~ bd]" ]
+
+-- yummy
+d1 $ n (inside 2 rev "0 1 2 3 4 5 6 7") # s "cpu2*8"
+
+d1 $ rev $ cat [s "bd bd sn",s "sn sn bd", s"lt lt sd", s "sd sd bd"]
+
+d1 $ outside 4 (rev) $ cat [s "bd bd sn",s "sn sn bd", s"lt lt sd", s "sd sd bd"]
+
+d1 $ stut 4 0.5 0.1 $ sound "bd sn"
+
+d1 $ stut 4 0.5 (-0.1) $ sound "bd sn"
+
+d1 $ stutWith 3 (1/3) (# vowel "{a e i o u}%2") $ sound "bd sn"
+
+d1 $ stutWith 4 (1/6) (|+ speed "1.5") $ sound "arpy arpy:2"
+
+d1 $ jux rev $ chunk 4 (fast 2 . (|- n 12)) $ off 0.25 (|+ 7) $ struct (iter 4 "t(5,8)")
+  $ n (scale "ritusen" "0 .. 7") # sound "superpiano"
+
+scaleList
+
+d1 $ n (toScale [0,2,3,5,7,8,10] "0 1 2 3 4 5 6 7") # sound "superpiano"
+
+import Sound.Tidal.Chords
+
+chordList
+
+d1 $ n (arpg "<'major7 'minor7> [0,4,7,11]") # sound "superpiano"
+
+d1 $ n (arp "<up down diverge>" "<a'm9'8 e'7sus4'8>") # sound "superpiano"
+
+d1 $ arp "<up*3 down>" (cat [n "c4'minor7 g4'minor7", n "f4'major7 e5'minor7"]) # sound "superpiano" # delay 0.5 # delayfb 0.2 # delayt 0.2 # lpf 1000
+
+let pats =
+      [
+        ("a", stack [n "c4 c5 g4 f4 f5 g4 e5 g4" # s "superpiano" # gain "0.7",
+                     n "[c3,g4,c4]" # s "superpiano"# gain "0.7"
+                    ]
+        ),
+        ("b", stack [n "d4 c5 g4 f4 f5 g4 e5 g4" # s "superpiano" # gain "0.7",
+                     n "[d3,a4,d4]" # s "superpiano"# gain "0.7"
+                    ]
+        ),
+        ("c", stack [n "f4 c5 g4 f4 f5 g4 e5 g4" # s "superpiano" # gain "0.7",
+                     n "[f4,c5,f4]" # s "superpiano"# gain "0.7"
+                    ]
+        )
+      ]
+in
+d1 $ ur 12 "a b c" pats []
+
+let pats =
+      [
+        ("a", stack [n "c4 c5 g4 f4 f5 g4 e5 g4" # s "superpiano" # gain "0.7",
+                     n "[c3,g4,c4]" # s "superpiano"# gain "0.7"
+                    ]
+        ),
+        ("b", stack [n "d4 c5 g4 f4 f5 g4 e5 g4" # s "superpiano" # gain "0.7",
+                     n "[d3,a4,d4]" # s "superpiano"# gain "0.7"
+                    ]
+        ),
+        ("c", stack [n "f4 c5 g4 f4 f5 g4 e5 g4" # s "superpiano" # gain "0.7",
+                     n "[f4,c5,f4]" # s "superpiano"# gain "0.7"
+                    ]
+        )
+      ]
+    fx = [("reverb", (# (room 0.8 # sz 0.99 # orbit 1))),
+          ("faster", fast 4)
+         ]
+in
+d1 $ ur 12 "a b:reverb c:faster" pats fx
+
+d2 $ stack [ n "1 1 1 2/2" # s "808bd",
+             n "[~ 1]*2" # s "808lt"]
+
+let pats = [("drums", s "drum cp*2"),
+            ("melody", s "arpy:2 arpy:3 arpy:5"),
+            ("craziness", s "cp:4*8" # speed ( sine + 0.5))
+           ]
+    fx = [("higher", (# speed 2))]
+in
+d1 $ ur 8 "[drums, melody] [drums,craziness,melody] melody:higher" pats fx
+
+d1 $ seqP [ 
+  (0, 12, sound "bd bd*2"), 
+  (4, 12, sound "hh*2 [sn cp] cp future*4"), 
+  (8, 12, sound (samples "arpy*8" (run 16)))
+]
+
+d1 $ qtrigger 1 $ seqP [ 
+  (0, 12, sound "bd bd*2"), 
+  (4, 12, sound "hh*2 [sn cp] cp future*4"), 
+  (8, 12, sound (samples "arpy*8" (run 16)))
+]
+
+d1 $ qtrigger 1 $ seqPLoop [ 
+  (0, 12, sound "bd bd*2"), 
+  (4, 12, sound "hh*2 [sn cp] cp future*4"), 
+  (8, 12, sound (samples "arpy*8" (run 16)))
+]
+
+d1 $ stut 4 (slow 3 $ range 0.5 0.7 square) (range 0.05 0.3 sine)
+  $ slow 2 $ note "f4'maj g4'min7 c5'm7 d4'm7" # s "supervibe" # lpf 300 # legato 0.3
+
+d2 $ every 7 (# speed (range 0.2 0.7 sine))
+   $ stack [ s "bd*4",
+             every 4 rev $ s "[~ <mt:3 lt:3 mt:4>]*2" # gain 0.85,
+             s "<[~ hh] [hh hh]>*8" # gain 0.9 # room 0.3 # lpf (range 1200 3000 sine) ]
+
+d1 $ while "10" (stut 4 0.5 0.1)
+   $ sound "bd [[bd, cp] ~ ~ <cp ~ >]"
+
+
+d1 $ sound "bd [~ sd] bd sd" # squiz 2
+
+d1 $ every 3 (rev) $ every 3 (chop 8) $
+  sound "bd [~ sd] bd sd" # squiz 2
+
+d1 $ every 3 (rev . chop 8) $
+  sound "bd [~ sd] bd sd" # squiz 2
+
+d1 $ every 3 (rev . chop 8 . fast 2) $
+  sound "bd [~ sd] bd sd" # squiz 2
+
+d1 $ every 3 ((# room 0.3) . rev . chop 8 . fast 2) $
+  sound "bd [~ sd] bd sd" # squiz 2
+
+d1 $ n "c e" # sound "supermandolin"
+
+d1 $ off 0.25 (# crush 4) $ n "c e" # sound "supermandolin"
+
+d1 $ off "2f" (|+ n 7) $ n "c a f e" # sound "supermandolin"
+
+d1 $ off "e" (|+ n 7) $ n (slow 2 "c(3,8) a(3,8) f(5,8) e*2")
+  # sound "supermandolin"
+
+d1 $ off "s" (|+ n (-12)) $ off "e" (|+ n "<7 12 -5>") $
+ n (slow 2 "c(3,8) a(3,8) f(5,8) e*2")
+ # sound "supermandolin"
+ # sustain 0.75
+
+-- The same principles can be applied to percussion, for example:
+d1 $ off "<s q e>" (# squiz 2) $ n "{0 1 [~ 2] 3*2, 5 ~ 3 6 4}"
+  # sound "cpu2"
+  # sustain 0.75
+
+d1 $ ur 16 "[bdsd, ~ claps, ~ [bass bass:crunch] ~ bass]"
+  [("bdsd", sound "bd [~ sd] bd sd" # squiz 2),
+   ("claps", sound "clap:4*2 clap:4*3"
+     # delay 0.8 # dt "t" # dfb 0.4
+     # orbit 4 # speed 4
+   ),
+   ("bass", struct "t(3,8)" $ sound "dbass" # shape 0.7 # speed "[1, ~ 2]")
+  ]
+  [("crunch", (# crush 3))
+  ]
+
+d1 $ n "[0 [1 0] 6*2 [3 4*2], 8(5,8)]" # sound "cpu2"
+
+d1 $ 0.25 <~ (n "[0 [1 0] 6*2 [3 4*2], 8(5,8)]" # sound "cpu2")
+
+d1 $ "0.2 0.1 0.05" <~ (n "[0 [1 0] 6*2 [3 4*2], 8(5,8)]" # sound "alphabet") # legato 0.7
+
+drawLine $ 0.25 <~ "a b c d"
+
+drawLine $ 0.25 <~ "a b c d"
+
+d1 $ off (1/6) (# lpf 1000)
+  $ off (1/8) (# squiz "3 1 2 0")
+  $ every 3 (0.25 <~)
+  $ note "b3'min7 e3'min9"
+  # s "feelfx" # legato 1 # lpf (range 500 2000 (slow 10 $ sine)) # gain 0.8
+
+d2 $ every 7 ((0.33 <~) . rev . fast (range 3 10 tri)) $ fast 2 $ "808bd 808ht" # n "1 2 3 4"
+
+d1 $ every 3 (0.25 <~) $ n "[0 [1 0] 6*2 [3 4*2], 8(5,8)]" # sound "cpu2"
+  # crush 4
+
+d1 $ every 3 (0.25 ~>) $ n "[0 [1 0] 6*2 [3 4*2], 8(5,8)]" # sound "cpu2"
+  # crush 4
+
+d1 $ "<0 0.25 0.75>" ~>
+  (n "[0 [1 0] 6*2 [3 4*2], 8(5,8)]" # sound "cpu2" # crush 4)
+
+d1 $ (~>) "<0 0.25 0.75>" $ n "[0 [1 0] 6*2 [3 4*2], 8(5,8)]"
+  # sound "cpu2" # crush 4
+
+d1 $ ("<0 0.25 0.75>" ~>) $ n "[0 [1 0] 6*2 [3 4*2], 8(5,8)]"
+  # sound "cpu2" # crush 4
+
+d1 $ every 3 (# speed 0.5) $ every (slow 4 $ "2 4 7") ("e q e " <~) $ every 3 (0.25 <~) $
+  loopAt 1 $ chop 8 $ sound "break:8 breaks125:3" # gain (range 0.5 1.0 (fast 3 $ cosine))
+
+d2 $ n "<1 2 1 2 4 3>(<3@7 5>,<8@3 6>)" # s "808bd <909:7 [909:3 can:7] 909:8 hh27> 808ht" 
+
+d1 $ struct "t f t t f t f f" $ sound "snare:4"
+
+d1 $ struct "f(3,8)" $ sound "snare:4"
+
+drawLine $ struct "t(3,8)" "a"
+
+drawLine $ struct "f(3,8)" "a"
+
+d1 $ stack [struct "t(3,8)" $ sound "kick:4",
+            struct "f(5,8)" $ sound "hh:4" # crush "<16 8 4 21 14 8 4 17>"
+           ]
+
+d1 $ stitch "t(3,8)" (sound "kick:4") (sound "snare:4")
+
+d1 $ stitch "t(<3 5>,8,<0 2 3>)" (sound "kick:4") (sound "hc")
+
+d1 $ stitch "t(<3 5>,<8 8 8 6>,<0 2 4>)" (sound "kick:4") (sound "hc")
+
+d1 $ sound (stitch "t(<3 5>,<8 8 8 6>,<0 2 4>)" "kick:4" "hc")
+
+drawLine $ struct "<t f>(3,8)" "a"
+
+drawLine $ struct "<1 0>(3,8)" "a"
+
+d1 $ struct "<1 0>(3,8)" $ sound "clap"
+
+d1 $ stitch "t f t t f f t f" (sound "kick:4") (sound "hc")
+
+d1 $ stitch "t f t [t f]*2 f ~ t f" (sound "kick:4") (sound "hc")
+  # room 0.2 # sz 0.8
+
+d1 $ sew "t f" (sound "kick") (sound "clap:4")
+
+d1 $ sew "t f" (sound "kick") (sound "clap:4*4")
+
+d1 $ chunk 4 (hurry 2) $ n "0 .. 7" # sound "cpu"
+
+d1 $ n "0 .. 7" # sound "cpu2" # speed 1.5 # squiz 2
+
+drawLine $ iter 4 "t f"
+
+d1 $ sew (iter 4 "t f")
+  (chunk 4 (hurry 2) $ n "0 .. 7" # sound "cpu")
+  (n "0 .. 7" # sound "cpu2" # speed 1.5 # squiz 2)
+
+d1 $ chunk 4 (# squiz 2) $ sound "bd hh sn cp"
+
+d1 $ n (fit 0 [9,10,11,12,13,14] "0 1 2 3") # s "alphabet"
+
+d1 $ n (fit 0 [9,10,11,12,13,14] "[0 3] [1 2] 4 [~ 5]") # s "alphabet"
+
+d1 $ n (fit 0 [9,10,11,12,13,14] "0 6") # s "alphabet"
+
+d1 $ n (fit 1 [9,10,11,12,13,14] "0 1 2 ~") # s "alphabet"
+
+d1 $ note (fit 2 [0,2,7,5,12] "0 ~ 1 [2 3]") # sound "supervibe"
+  # legato 2 # gain 0.8 # delay 0.2 # delayfb 0.2 # delayt 0.3
+
+d2 $ n (fit 2 [0,2,7,5,12] "0 ~ 2 [3*2 4*2]") # sound "cpu" # speed 2
+
+d1 $ s "numbers alphabet arpy" |< n "[0 1]*4%3"
+
+d1 $ every 3 (jux rev) $ striate 3 $ slow 4 $ n "0 .. 25" # s "tabla"
+
+d2 $ s "808bd:3 808oh 808sd:4 <808lt 808ht>"
+
+d2 $ off "<0.125 0.12 0.125>" (# crush "8 4 3 2")
+   $ note "<d4'six9 e4'six9 f4'7f9>(3,8)"
+   # s "superpiano" # lpf "<500@3 1000@2>" # velocity 0.7
+
+drawLine $ "0 .. 9"
+
+d1 $ slow 16 $ n "0 .. 100" # s "snare"
+
+d1 $ off "0.2 0.1 0.2" (# speed 0.5) $ begin "<0.1 0.2 0.05 0.3>(3,7) 0.2 [0.01 0.05] 0.5" # note "c5'min7" # s "foley:220" # legato 0.5
+
+d1 $ every 8 (swingBy (1/3) 8) $ stack [
+  stut 4 0.5 0.1 $ begin "<0.1 0.2 0.07 0.3> 0.2 [0.08 0.07] 0.5" # note "<c5'min7 e5'min7>" # s "foley:220" # legato 0.5 # lpf (slow 8 $ range 500 2000 sine),
+  every 3 (ghost) $ "[cpu:0*4, ~ ~ cpu2:2 ~]" # gain 1.1,
+  note ("<0.25@4 0.5>" <~ "<-13 -20 -22>(3,8)") # s "supersaw" # lpf (slow 3 $ range 300 500 saw)]
+
+--d1 $ n (fit 0 [9,10,11,12,13,14] "0 6") # s "alphabet"
+
+d1 $ stut "4 5 7 8" 0.5 "<0.1@3 0.2>" $ begin "<0.1 0.2 0.07 0.3> 0.2 [0.08 0.07] 0.5" # note "<c5'min7 e5'min7 c5'min7 g5'min7>" # s "foley:220" # legato 0.7 # lpf (slow 8 $ range 500 2000 sine)
+
+d2 $ loopAt "<0.5 0.25 0.2 0.3> " $ chop 8 $ n "0 .. 7" # s "realclaps"
+
+d2 $  n "0 .. 7" # s "realclaps"
+
+d1 $ loopAt 4 $ chop 32 $ sound "breaks125"
+
+d1 $ juxBy 0.6 (|* speed "2") $ loopAt "<4 6 2 3>" $ chop 12 $ sound "fm:14"
+
+d3 $ n "<1 1 0 2 1>*4" # s "808bd" # legato 0.5
+
+d3 silence
+
+d4 $ n "<-27 -25 -27 -30>(3,8)" # s "supersaw" # lpf (range 300 2000 (fast 16 $ rev $ saw))
+
+d4 silence
+
+d1 $ every 3 (# squiz 3) $ fit 2 [0,2,7,5] "0 .. 7" # s "[bassdm bend]*2"
+
+d1 silence
+
+d2 $ every 4 (rev) $ stack [s "kick:5*4" # lpf (range 300 500 (slow 8 $ sine)),
+            s "[~ hh]*4" # crush "4 5 6 7"]
+
+d3 $ n (scale "minPent" $ "0 [7 2] [3 [4 <5 5 3 6 7>]] <2 3 1 5>" |+ (-12))
+  # sound "supervibe"
+
+d3 silence
+
+d1 $ n "<1 [6 7 8] 3 4 6 6>*3" # begin "-0.1 0.1 0.2" #  s "tabla"
+
+-- 10-Sep-21
+
+d1 $ rot "<0 0 1 3 0 [4 -3] 5>" $ every 3 (# speed 2)
+  $ n "<1 [6 7 8 1] 3 4 6 6>*3" # begin "-0.1 0.1 0.2" # s "tabla tabla2"
+
+d1 $ rot "<0 0 1 3 0 [4 -3] 5>" $ every 3 (# speed 2)
+  $ n "<2 1 [6 7 8 1] 3 [4 5 9] 6 6>*3" # begin "{ -0.1 0.1 0.2 }" # s "tabla tabla2"
+  # delay 0.5 # delayfb 0.2 # delayt 0.3
+  # room 0.5 # sz "<0.2 0.9 0.3 0.9>"
+
+d1 $ every 4 (stut 4 0.5 "0.1 0.02")
+  $ n "[ c4 c5, e5 e4, g5 g7 ] <e5 c5 [ g5 g7 ]> [f4 f6,c5 c4,a5 a7] <c6 [ g4 g6 ]>"
+  # s "supervibe"
+  # orbit 4
+  # lpf "500@3 1000"
+  # resonance 0
+  # delay "0.5 0.3" # delayt 0.33 # delayfb "<0.1 0.2 0.1 0.1 0.2 0.3>"
+
+d1 $ ur 16 "[~ melody, kicks, drummy, claps, bass ~, ~ ~ ~ stuff stuff:crunch]"
+  [("melody", n "[ c4 c5, e5 e4, g5 g7 ] <e5 c5 [ g5 g7 ]> [f4 f6,c5 c4,a5 a7] <c6 [ g4 g6 ]>"
+              # s "supervibe"
+              # orbit 3
+              # lpf "500@3 1000"
+              # resonance 0
+              # delay "0.5 0.3" # delayt 0.33 # delayfb "<0.1 0.2 0.1 0.1 0.2 0.3>"),
+   ("claps", sound "[~ clap:4]*2"
+             # lpf 400
+             # delay 0.3 # dt "t" # dfb 0.2
+             # gain 0.8
+             # orbit 4 # speed 1
+   ),
+   ("kicks", every 3 (fast 1.5) $ every 5 (+ 3) $ s "[ 808bd:3*4 ]" # gain 1.3),
+   ("drummy", every 5 (+ 3) $ s "<hh:3 hh:2>(<3,4,7,9,9,9>,16)" # gain 0.8),
+   ("stuff", s "<808:4 808:5 808:4 808:5 808:6>*4"),
+   ("bass", note ((1/8) <~ "<e3 c2 g2>(<3 2 5>,<5 7 8 9>)")
+     # sound "supersaw"
+     # orbit 5
+     # lpf (range 300 700 (slow 3 $ sine))
+     # decay (slow 6 $ "1.5 1.3 2") # legato "3 3 4")
+  ]
+  [("crunch", (# crush 3))
+  ]
+
+d1 $ fast (every 3 rev $ "2 3") $ every 3 ((-) 2) $ every 2 (+ 3)
+  $ stack [
+  cat [s "bd bssnare", s "bd bd"],
+  s "hh*8"
+  ]
+
+
+-- 11-Sep-21
+
+d1 $ off 0.25 (# squiz "<0.5 0.5 0.5 0 0.2>")
+  $ note "[<ef4 ~ [f4 gs5] ~>, <~ [c4 bf4] bf5 c5 ~>, <g5 ~ [g4 d5] ~>]*3"
+  # (slow 2 $ s "superpiano [breath:3, supervibe]")
+  # room 0.5 # sz "0.1 <0.4 1> 0.1"
+  # delay 0.5 # delayfb 0.1 # delayt 0.33
+
+d1 $ n (fit 2 [9,10,11,12,13,14] "4 0 1 2 5") # s "dr2" # legato 1
+
+d2 $ s "[bd(3,5), drum:5(2,5,2)]"
+
+setcps (117/60/4)
+
+d1 $ rot "<0 0 1 0 1 -2>" $ n "0 1 2 3" # s "dr55*4"
+
+d1 $ n (fit 2 [0,1,2,3] "0 1 2 3") # s "dr55*4 808mc"
+
+d2 $ fast 4 $ note "~ <e2!8 c2!8 g2!8 a1!8>"
+  # s "arpy" # legato (range 1.2 1.6 (slow 2 $ sine)) # lpf 200
+
+d3 $ (rot "<0 0 1 2>" $ n "0 1 2 3") <| s (stitch "t(<3 5>,<8 8 8 16>,<0 2 4>)" "bassdm:0" "<snare:3 ~>")
+
+d4 $ every 3 (|+ note "<12 7 12 5>") $ note "<[c5 e5] ~ [g5 <a4 a5>] ~>" # s "gtr"
+  # legato 1 # hpf (range 500 1000 (slow 8 $ sine))
+  # delay 0.5 # delayt 0.5 # delayfb 0.2
+
+d5 $ every 5 (rev . crush 3) $ every 3 (|+ n "7 8 9") $ n "0 .. 7" # s "jazz"
+
+d1 $ jux (# crush "<4 7 16 16 8 4>(5,9)") $ splice 8 "6 1 [2 3] 5 1 ~" $ sound "break:4"
+
+-- sitary
+
+setcps (117/60/4)
+
+d1 $ slice 16 (fit "2 3" [0,1,2,3,4,5,6,7,8] (slow 2 $ "3 [0 7] 2 1 4 [~ 3] 6 1"))
+  $ s "sitar"
+  # cut 1 # delay "<0 0 0 0.5>" # delayt "<0 0 0 0.25>" # djf (range 0 1 (slow 2 $ saw))
+
+d2 $ every 3 (+ n "<0 1 0 3 10>") $ s "bd:9*2 sd/2"
+
+d3 $ every 4 (+ n "2 3") $ "<0.125!4 -0.125>" <~ (note "<[0 0]!2 [0 1] [7 4]>" # s "bass3:6")
+
+d3 $ (range 0.120 0.130 (slow 4 $ sine)) <~ (note "<[0 0] [0 <1 -5 7 4>]>" # "bass3:8")
+
+-- house attempt gone somewhat wrong
+
+setcps (122/60/4)
+
+d1 $ off "0.125 -0.05 0.125 -0.01" (# crush "4 5 4 6") $ s "808bd:8*4"
+
+d2 $ s "hh:8(7,16,<2 3 1 2 3>)"
+
+d3 $ (<~) 0.125 (note "0 <1 2 2> <5 7 5> <3 4>" <| s "bass3:0*<4!3 5>")
+
+d4 $  stut 4 0.5 "<0.25 0.125>" $ n "<[c3, g4] [c4, <f3 f5>] [<g5 f5 c5>, f4]>" # s "supervibe" # gain 0.8 |+ n 3
+
+d5 $ n "<[c3, g4] [c4, <f3 f5>] [<g5 f5 c5>, f4]>" # s "superhammond" # gain 0.8 |+ n 3
+
+d6 $ s "909 dr55:3"
+
+-- hmmmmmmmm
+
+d1 $ (range (-0.001) 0.001 rand) <~ (n "0 [1 3] 2 <~ ~ 1> 0 <0 1 3>(2,7) <~ 7>" # s "superhat")
+
+d2 $ s "808lt:3(<4!4 3 5>,7,<0!6 3>)"
+
+d3 $ arp "<up down pinky>" $ struct (slow 4 $ "t(5,8,<0 4>)") $ n "cs4'min7 fs4'min7" # s "supermandolin"
+
+-- 13-Sep-21
+
+d1 $ slow "<2!3 4>" $ arp "updown thumbup" $ note "<c'maj'12 c'min'12 c'min7'12>" # s "blip" # lpf 2000
+
+d2 $ s "bd"
+
+-- from saxodr.one on tidal discord patterns-snippets
+
+let create = d1
+    moderately = 0.2
+    chopped = chop
+    coarsely = "<4 8 16 8 8>"
+    randomly = (slow 4 $ range 0.3 0.9 $ perlin)
+    sweep = djfbus "0"
+    glitching = randslice 4 . slice 16 "0*8 8*16 5*2 7*4"
+in
+  create $ rarely glitching $ sound "breaks125"
+  # distort moderately
+  # sweep randomly
+
+-- messy taste
+
+d1 $ fast 4 $ randslice "<32!4 17 13 19>" $ sound "bev:3" # delay 0.5 # delayt 0.125 # delayfb 0.1
+
+d1 $ slice "<32!4 17 13 19>" "0 7 ~ 8 ~ 5 ~ 17" $ sound "bev:3" # delay 0.5 # delayt 0.125 # delayfb 0.1
+
+d2 $ s "[ kick:5*<4!4 8>, hh:8(<5 9 7>,<16!4 17>), [~ realclaps:3 ]*2 ]"
+
+d2 $ s "[ kick:8, ~ cp ]"
+
+d3 $ 0.125 <~ (note "c3 <c3 c3 g3 bf3>" # s "gtr" # legato 0.7)
+
+d3 $ (fast 2 . randslice 8)
+  $ 0.125 <~ (note "<bf3!2 cs3!2> <d3 f3>" # s "gtr" # legato 0.7) # crush "<6 7 5 8>"
+
+-- yelly people
+
+d1 $ slice 4 "0 <1 0 2 3> 2 <3 2 0>"
+   $ n (fit 2 [0,1,2,3,4,5,6,7] "2 [1 <0 3 0 5>] . [1 3] 3 [7 <0 2 4 7 2 3>]")
+   # s "<breaks125@4 bsvocals>" # legato 2
+
+d2 $ note "<0 0 1 0 2>*4" # s "bassdm"
+
+d3 $ rot "<0 0 -1 -2 0>" $ note "0 1 2 3 5 7 8 9" # s "808mt:4" # room 0.6
+  # sz "<0.2 [0.3 2] 0.4>" # gain 0.8
+
+--d1 $ slice 4 "0 1 2 3" $ s "breaks125" # legato 1
+
+-- 15-Sep-21
+
+d1 $ every 3 (rev) $ off 0.2 (|+ "<2 3 7>") $ note (scale "minPent" "0 .. 7") # s "superpiano"
+
+d1 $ superimpose (slow 2) $ struct "t(5,16)" $ n (arp "<down@3 up@4>" "'minor7 [0,4,7,11]")
+  # sound "[supervibe <808lt:4 808mt:3 <pad:2 pad:3> 808ht:2>]*3" # legato 2 # room 0.05 # lpf 5000 # decay 0.1 # velocity 0.3
+
+d2 $ s "bd:8 hc:2" # gain "1.0 0.8"
+
+d3 $ iter 8 $ sound "~ cpu2:3 ~ cpu2:8"
+
+
+hush
+
+panic
+
+
+import Sound.Tidal.Chords
+
+chordList
+scaleList
