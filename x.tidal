@@ -899,7 +899,13 @@ d3 $ iter 8 $ sound "~ cpu2:3 ~ cpu2:8"
 d1 $ n 0 # "superfm"
    # ratio1 1
 
-d1 $ jux (every 3 inv "t(3,8)") $ n "0 .. 7" # s "hit" # legato 1
+-- 19-Sep-21
+
+d1 $ every 3 (rev) $ struct "<t f>(3,8)" (n "0 [2 0] . 1 3 4" # s "<808bd 808mt>" # legato 1)
+
+d2 $ off 0.25 (rev) $ struct "<t f>(3,8)" (n "[ 1 .. 3 ] . [ 2 .. 7 ]" # s "odx jvbass" # legato 0.5 # lpf 1000)
+
+d3 $ every 2 (# amp 0) $ arp "down" (note "[1 4 3]*2" # s "808ht")
 
 hush
 
