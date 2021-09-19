@@ -885,7 +885,7 @@ d3 $ rot "<0 0 -1 -2 0>" $ note "0 1 2 3 5 7 8 9" # s "808mt:4" # room 0.6
 
 -- 15-Sep-21
 
-d1 $ every 3 (rev) $ off 0.2 (|+ "<2 3 7>") $ note (scale "minPent" "0 .. 7") # s "superpiano"
+d1 $ every 3 (rev) $ off 0.2 (|+ "<2 3 7>") $ note (scale "aeolian" "0 .. 7") # s "superpiano"
 
 d1 $ superimpose (slow 2) $ struct "t(5,16)" $ n (arp "<down@3 up@4>" "'minor7 [0,4,7,11]")
   # sound "[supervibe <808lt:4 808mt:3 <pad:2 pad:3> 808ht:2>]*3" # legato 2 # room 0.05 # lpf 5000 # decay 0.1 # velocity 0.3
@@ -894,6 +894,12 @@ d2 $ s "bd:8 hc:2" # gain "1.0 0.8"
 
 d3 $ iter 8 $ sound "~ cpu2:3 ~ cpu2:8"
 
+-- 17-Sep-21
+
+d1 $ n 0 # "superfm"
+   # ratio1 1
+
+d1 $ jux (every 3 inv "t(3,8)") $ n "0 .. 7" # s "hit" # legato 1
 
 hush
 
