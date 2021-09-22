@@ -985,18 +985,79 @@ panic
 
 d2 $ s "{bd(3,8), [~ realclaps:8]*2}" # amp 0.45
 
-d1 $ struct "t(<3@3 1@2 5@2 7@1>,8)" $ note "c3 f2 g2" # s "superfm" # legato 1
+d1 $ struct "t(<3@3 1@2 5@2 7@1>,8)" $ note "<f3 a2 g2 e2>" # s "superfm" # legato 1
   # amp1 4 # feedback 1 # mod11 0.3 # mod12 3 # mod23 "<0 0 0 0.5 0.3>" # ratio2 "1.01 <0.95 1.02> 1.005"
   # amp2 0 # amp3 0 # amp4 0 # amp5 0 # amp6 0 # vowel "a e o u i" # squiz "1 0.95"
   # amp 0.3
 
-d3 $ n "<f4'maj a4'min g4'maj e4'min>" # s "superpiano" # amp 0.15 # legato 1 # delay 0 # delayt 0.25 # delayfb 0.8 # room 0.1 # sz 0.5
+d3 $ n "<f4'maj a4'min g4'maj e4'min>" # s "supervibe" # amp 0.15 # legato 1 # delay 0 # delayt 0.25 # delayfb 0.8 # room 0.1 # sz 0.5
 
 do 
     let pat = "<[0*2 10] [7_3 [5 7]] [8 <5 12>] [<2 7>_3 [3 2]]>"
     d1 $ note pat # s "supervibe" # gain 0.8
             # room 0.5 # size 0.6
     d2 $ note pat # s "supervibe" |/ speed (1.5) # octave 3 # gain 0.7 # shape 0.4
+
+-- 21-Sep-21 evening jam
+
+d1 $ n "<0 1 2 2 1 0>*4" # s "808bd" # amp 0.7
+
+d2 $ fast 2 $ n "~ <8 4 2 3 1>" # s "clap"
+
+d3 $ fast 4 $ n "<[0 1]@4 [0 2 1]@3>" # s "hc"
+
+d4 $ stutter 3 (1/16) $ rot "<0 0 -1 1, 0 2 0 1>"
+  $ fast 4 $ n "~ <[0 1]@4, [0 2 1]@3>" # s "lo" # amp 0.15 # legato 0.5 # lpf 1000
+
+d5 $ fast 2 $ note "<~ gs4'min7@4, ~ cs4'min7@3>"
+  # s "supermandolin" # detune 0 # sustain 2
+
+--
+
+d1 $ n "0(3,8)" # s "cpu2"
+
+d2 $ every 3 (jux rev) $ n "7(7,16)" # s "cpu2" # lpf (range 1000 2000 (slow 8 $ saw))
+
+d3 $ every 2 (# amp 0) $ every 3 (rev) $ note "<gs2 cs3 ef3>(3,8,<1@4 3@4>)" # s "superpwm" # legato 0.75
+
+d4 $ every 6 (fast 4) $ fast 2 $ n "~ 0" # s "bssnare"
+
+d5 $ slow 4 $ note (arpg "<gs4'minor9 cs3'minor7 ef4'minor7>") # sound "supervibe" 
+
+d1 silence
+d2 silence
+d3 silence
+d4 silence
+d5 silence
+hush
+
+-- 22-Sep-21
+
+setcps (120/60/4)
+
+do 
+    let swingpat = "<0.11111 0.23 [0.1111 0.23 0.3] 0.27 [0.33 0.4]>"
+    d1 $ swingBy swingpat 4
+      $ stut "3 7" "0.5 0.2 <0.3 0.7>" "<[0.125 0.175] [0.125 0.275]>"
+      $ every 7 (struct "t(3,8)")
+      $ every 3 (rev) $ slow 2 $ note "c4'min7'3 f4'min9'5 g4'min7'5 ef4'maj7'7" # s "pluck:8" # amp 0.35 # legato 0.7
+    d2 $ swingBy swingpat 4
+      $ s "[ bd:3(3,8,<0@3 1@1>), hh(3,8,<3@5 2@1>) ]"
+    d3 $ swingBy swingpat 4
+      $ fast 2 $ s "~ cpu(<1@3 3>,8,<0 0 0 -1>)" # n "<1 5 2 4 3 7>" # amp 0.3
+    d4 $ swingBy swingpat 4 $ n "0(<4@3 5>,8)" # s "cpu2"
+
+do
+  let pat = "<0 2 0 4 7>"
+  d1 $ note pat + note "c4'min7" # s "kurt:3(5,8)" # legato 1
+  d2 $ every 3 (jux rev)
+    $ note pat + note "c4'min7(<3@3 5>,8,<0 0 -2 0 -1>)" # s "supersaw" # legato 1 # amp 0.08 # lpf 5000
+  --d1 $ note "<0 2 0 4 7>" + note "c4'min7(5,8,<0 0 -2 0 -1>)" # s "juno:0" # legato 0.5
+  d3 $ note (3) + note pat + note "c5*4" # s "bass3:2" # legato 1 # lpf 100 # amp 0.2
+  d4 $ every 7 (# amp 0) $ every 3 (shuffle 8) $ s "808bd:3*4"
+  d5 $ s "hh(5,8,<2 3 5>)" # amp (range 0.05 0.3 (slow 8 $ sine))
+
+hush
 
 import Sound.Tidal.Chords
 
