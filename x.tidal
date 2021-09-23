@@ -1087,6 +1087,36 @@ d5 $ note "<ef3 bf3@2 g4 gs4@2>" # s "superpwm" # lpf (range 500 1500 (slow 8 $ 
 
 hush
 
+-- 23-Sep-21
+
+d1 $ struct "<t(3,8)@2 t(5,16)>"
+  $ every 4 (# squiz 1) $ slice "<4@7 7@1>" "<0 1 7> 6 5 <4 2> 3" $ s "<foo:0@7 foo:3>"
+
+d2 $ every 4 (fast 2) $ n "3 3 <3 0> 3" # s "808bd"
+
+hush
+
+-- afternoon
+
+d1 $ slice "8@3 9@1" "[<0*3 <0 1 3>*2> 2*4 2 4] [4 7 . 5]"
+  $ s "<breaks125@3 breaks165@1 [breaks125 breaks165]@2 bev@1>"
+  # speed "0.5 1 0.3"
+  # legato 1
+
+-- uh
+
+d1 -- $ slice 4 "[<0*8 0*2> 3*4 2 4] [4 .. 7]"
+  $ slow 2 $ struct "t(9,16,<4@3 2 3>)"
+  $ n "3 .. 7 . 8 .. 5" # s "808mc" # speed (range 0.97 1.03 (slow 16 $ sine))
+
+d4 $ fast 2 $ s "<~ ~ ~ hh ~ speakspell> <sn sn:1>"
+
+d2 $ n "0 1 0 1" # s "cpu2"
+
+d3 $ note "<[c4 ef4] [ef4 bf4] [bf4 g4] [c4 c4]>" # n "1" # s "sine"
+
+d5 $ every 4 (fast 4) $ note "c4'min <g4'min f4'min g4'min>" # s "superhammond" # legato 0.2 # voice 5
+
 import Sound.Tidal.Chords
 
 chordList
