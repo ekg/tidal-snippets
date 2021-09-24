@@ -1063,6 +1063,8 @@ do
   d4 $ every 7 (# amp 0) $ every 3 (shuffle 8) $ s "808bd:3*4"
   d5 $ s "<hh:6 bottle:3 hh:7 bottle:6>(5,8,<2 3 5>)" # amp (range 0.05 0.3 (slow 8 $ sine))
 
+hush
+
 -- 22-Sep-21 break
 
 d1 $ rotL (1/9) $ n "<0 0 2 0 4 0>" + note "c4'min'3(2,9)" # s "superpwm" # voice "< 0.2 0.3 0.5>"
@@ -1161,12 +1163,13 @@ d1 $ rotR (1/4) $ note "<d4'min7 e4'min7 f4'min9 d4'min9>" # s "supercomparator"
   # delay 0.5 # delayt 0.666 # delayfb 0.8
   # room 1 # sz 0.5 # amp 0.05
 
-d2 $ s "808bd:3*4"
+d2 $ s "808bd:3(<4@2 3>,8)" # amp 0.7
 
 d3 $ every 2 (# amp "0.5 0") $ rotR (1/8) $ s "lo hi lo:2 lo:3"
 
 d4 $ stut 16 0.25 (1/8)
-  $ note "<d4'min7 ~ e4'min7 ~ f4'min9 d4'min9 ~ ~>" # s "supercomparator"
+  $ rotR (1/4)
+  $ note "<d4'min7 e4'min7 f4'min9 d4'min9>" # s "supercomparator"
   # voice 1 # lpf 2000 # hpf 1000
 
 --
@@ -1188,6 +1191,28 @@ d2 silence
 d3 silence
 d4 silence
 d5 silence
+
+--
+
+setcps (84/60/4)
+
+setcps (124/60/4)
+
+d1 $ fast 2 $ n "0 <1 2 3 4 0 [0 8]>" + s "808bd:8 print" # amp "<0.8 0.9 0.7 0.8> 0.5"
+  # pan (range (-0.5) 0.7 (slow "5 3 5" $ sine))
+
+d2 $ every 3 (stut 2 0.5 (1/8))
+  $ fast 1 $ n "<0 -2 8>" + n "0 ~ 0 ~ 0" # s "sitar:3" # legato 1 # amp 0.6 # delay 0.5 # delayt 0.3 # speed 1.008
+
+d2 silence
+
+d3 $ fast 4 $ s "~ tech" # n "<8 7 8 9 7 8>" # amp 0.8 # room 0.2
+
+d4 $ note "<d4 a4 g4 d5>" # s "supertron" # lpf 200 # amp 0.2 # room 0.5 # sz 0.2
+
+d5 $ note "<d4'min a4'min g4'min d5'min>" # s "superpiano" # lpf 1000 # amp 0.2 # room 0.5 # sz 0.2
+
+hush
 
 import Sound.Tidal.Chords
 
