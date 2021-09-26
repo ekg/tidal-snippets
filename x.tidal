@@ -1379,9 +1379,9 @@ d3 $ slow 2 $ off "s" ((# crush (slow 3 "11 5 7 9")).(# amp 0.3).(# pan (range (
   $ stut 8 0.5 0.125
   $ note "<c5'maj7 d5'maj7 g5'maj9 d3'maj9 c4'maj9 d4'maj9 f4'maj9>" # s "pluck:2"
 
---
+-- wum
 
-hush
+setcps (135/60/4)
 
 do
   let swing n p = nudge (fast n (cat [0, p]))
@@ -1397,13 +1397,49 @@ do
     # legato 8
   d2 $ every 1 (# swingy)
     $ note "<c4'maj f3'maj9 g3'maj7 d3'maj7>"
-    # s "piano:5" # legato 1 # att 1 # release 2 # amp 0.1
+    # s "piano:5" # legato 1 # att 1 # release 2 # amp 0.3
     # swingy
   d3 $ every 1 (# swingy)
     $ s "[909:0(<4!7 5>,16), <hi lo hi hi lo lo>(3,16,<2 0 0 2 3 0>)]"
     # amp 0.5 # speed "1 <0.66 1 1.33 1.5 0.5>"
   d4 $ every 1 (# swingy)
     $ struct "t(7,16,4)" $ fast 2 $ s "~ kettle warble 808sd" # n "<0 1 2 7 1 0 1 2>" # legato 0.7
+  --d1 silence
+  --d2 silence
+  --d3 silence
+  --d4 silence
+  
+hush
+
+d1 $ every 2 (+ note "-4 -7/2") $ note "e4'maj(3,8,2)" # s "uku" # att 0.1 # sus 0.8
+
+d2 $ every 4 (# amp 0) $ every 3 (fast 2) $ s "cpu:0*4" 
+
+d3 $ s "~ cpu:4(<7 5 2 7 2 5>,16,2)" # delay 0.4 # delayt 0.137 # delayfb 0.7
+
+-- 26-Sep-21
+
+setcps (120/60/4)
+
+hush
+
+do
+  let son = "t f f t . f f t f . f f t f . t f f f"
+  let swing n p = nudge (fast n (cat [0, p]))
+  let swingy = swing 16 0.03 --(range 0.03 0.05 (slow 8 $ saw))
+  d1 $ every 3 (slow 2) $ struct son $ fast 2 $ s "cpu bd:9 cpu:2" # swingy 
+  d2 $ 0.25 <~ ( every 3 (slow 2) $ struct son $ s "cpu2:3" # swingy) # speed "1!3 <0.3 0.5>"
+  d3 $ 0.01 <~ ( every 3 (slow 2) $ struct son $ note "c4 g4 b4"
+                 #  s "flbass" # att 0.3 # sustain 0.3 # release 0.9 # swingy)
+  d4 $ "<0!7 0.25>" <~ ( every' 3 2 (# squiz "3 4 7") $ every 3 (# amp 0) $ struct son
+                $ slow 4
+                $ stut 4 0.5 (1/16) 
+                $ note "~ c4'min7 ~  g4'min7 ~ b4'min7"
+                # n "<3 2 [2 3 4] 1 0>"
+                # s "piano" # amp 0.1 )
+
+--  d5 $ note (arp "<down up>" "<cs5'maj7 fs5'maj7>") # s "moog:8" # att 0.1 # rel 0.5 # distort "1 5 1 3" # amp 0.1
+  
 
 import Sound.Tidal.Chords
 
