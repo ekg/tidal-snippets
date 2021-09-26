@@ -1287,6 +1287,40 @@ d3 $ "[~ cp](2,13)"
 
 hush
 
+-- 25-Sep-21
+
+setcps (89/60/4)
+
+do
+  let son = "t ~ ~ t ~ ~ t ~ ~ ~ t ~ t ~ ~ ~"
+  d1 $ every 8 (fast 2) $ struct son $ s "kick:8" # speed (range 0.99 1.01 (slow 4 $ sine))
+  d2 $ every 8 (slow 2) $ "<q <s q> h q q s>" <~ (struct son $ n "<3 1 7 3 2>" # s "[~ hc]*4" )
+  d3 $ "<q q s [q h]>" <~ (struct son $ n "c2" # s "sine:1" # lpf 200)
+
+-- 26-Sep-21
+
+setcps (120/60/4)
+
+hush
+
+do
+  let son = "t f f t f f t f f f t f t f f f"
+  let swing n p = nudge (fast n (cat [0, p]))
+  d1 $ struct son $ s "808bd:3" # amp 1 # swing 8 0.03
+  d4 $ struct ((every 3 inv) son)
+    $ every 3 ((+ 3).(# squiz 3))
+    $ every 2 (+ 7)
+    $ every 7 (+ (-8))
+    $ n 8
+    # "birds3 bleep hh"
+    # swing 8 0.03
+  d5 $ struct (every 8 inv $ son) $ n "1 2 ~ 3 1 ~ 3 8" # s "coins"
+  d3 $ slow 2 $ struct (inv son) $ s "amencutup" # swing 8 0.03
+  d2 $ every 2 (# amp 0)
+    $ slow 8
+    $ struct (inv son)
+    $ n "<e4'min7 b3'min7 fs4'min7>" # s "supertron" # att 4 # amp 0.2 # swing 8 0.03 # legato 2 
+  
 import Sound.Tidal.Chords
 
 chordList
