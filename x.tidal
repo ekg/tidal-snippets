@@ -1304,23 +1304,82 @@ setcps (120/60/4)
 hush
 
 do
-  let son = "t f f t f f t f f f t f t f f f"
+  let son = "t f f t . f f t f . f f t f . t f f f"
   let swing n p = nudge (fast n (cat [0, p]))
-  d1 $ struct son $ s "808bd:3" # amp 1 # swing 8 0.03
+  let swingy = swing 16 (range 0.03 0.05 (slow 8 $ saw))
+  d1 $ every 8 ((fast 2).(# squiz 3)) $ struct son $ s "808bd:3" # amp 1 # swingy
   d4 $ struct ((every 3 inv) son)
     $ every 3 ((+ 3).(# squiz 3))
     $ every 2 (+ 7)
     $ every 7 (+ (-8))
     $ n 8
     # "birds3 bleep hh"
-    # swing 8 0.03
-  d5 $ struct (every 8 inv $ son) $ n "1 2 ~ 3 1 ~ 3 8" # s "coins"
-  d3 $ slow 2 $ struct (inv son) $ s "amencutup" # swing 8 0.03
+    # swingy
+  d5 $ every' 4 1 (# crush "3 7 3")
+    $ struct (every 4 inv $ son) $ striate 16 $ n "1 2 ~ 3 1 ~ 3 8" # s "coins" # swingy
+  d3 $ slow 8 $ struct (inv son) $ n "0 .. 7" # s "amencutup" # swingy
   d2 $ every 2 (# amp 0)
     $ slow 8
     $ struct (inv son)
-    $ n "<e4'min7 b3'min7 fs4'min7>" # s "supertron" # att 4 # amp 0.2 # swing 8 0.03 # legato 2 
-  
+    $ every 8 (off "<s q s q>" ((# squiz 2).(+ 7)))
+    $ n "<e4'min7 b3'min7 fs4'min7>" # s "supertron" # att 5 # amp 0.15 # swingy # legato 2
+    # lpf (range 200 1000 (slow 16 $ sine)) # delay 0.5 # delayt 0.7 # delayfb 0.7 # room 0.5 # sz 0.3
+
+--
+
+setcps (120/60/4)
+
+do
+  let samba = "<t(5,16,13) t(7,16,14)!5 t(5,16,14)!2 t(3,16,14)>"
+  let swing n p = nudge (fast n (cat [0, p]))
+  let swingy = swing 16 (range 0.0005 0.01 (slow 8 $ sine))
+  d1 $ struct samba $ n "0 .. 7" # s "popkick" # swingy
+  d2 $ struct "t(<3 7>,16,<5!3 11!2>)" $ struct (inv samba)
+    $ s "808mc 808mt" # n "<0 1 2!3 1!3>" # swingy # delay 0.5 # delayt "q h q" # delayfb 0.3 # amp 0.35
+  d3 $ every 6 (# amp 0) $ slow 4 $ struct samba $ note "0 <5!3 4> 7" + note "c6'min7'o"
+    # s "~ pluck" # legato 2 # amp 0.5 -- alternate adding a pluck:3
+  d4 $ struct (every 8 inv samba) $ striate 16 $ n "<11 12>" # s "break" # legato 1 # swingy
+
+hush
+
+--
+
+setcps (120/60/4)
+--setcps (100/60/4) -- nice slower as well
+
+d1 $ loopAt "<1!2 2>" $ s "break:1"
+
+d2 $ every 8 (fast 2) $ s "bd:2*4"
+
+d3 $ every 8 (fast 2) $ fast 2 $ n "~ <1 3 1 1 3 3>" # s "clap" # amp 0.2
+  # delay 0.5 # delayt "q h" # delayfb 0.1
+
+d4 $ struct "t(3,8,14)" $ note "<c3 c3 c3 g3 c3 c3 g3 f3>" # s "superhammond" # voice 5
+
+d5 $ fast 4 $ note "~ <c4'min!6 g4'min f4'min>" # s "superpiano" # legato 0.5 # amp 0.3 # lpf 500
+
+--
+
+hush
+
+setcps (120/60/4)
+
+d1 $ loopAt 2 $ s "break:5"
+
+d1 $ striate "<11 16 15 14 8>" $ loopAt 2 $ s "break:5"
+
+d1 $ n (slow 2 $ segment 11 $ range 0 32 $ sine) # sound "amencutup"
+
+d1 $ struct "t(7,16,14)"
+  $ loopAt 2 $ every' 7 2 (rev) $ rev $ chop 16 $ every 4 (+ 3) $ sound "break:7" # hpf 500
+
+d2 $ struct "t(<4 3 5 3>,8)" $ note "c4" # s "pluck:2 bd:1" # lpf (range 300 2000 (slow 8 saw)) # lpq 0
+
+d3 $ slow 2 $ off "s" ((# crush (slow 3 "3 4 7 9")).(# amp 0.3).(# pan (range (-0.5) 0 (slow 8 sine))))
+  $ stut 8 0.5 0.125
+  $ note "<c5'maj7 d5'maj7 ~ g5'maj9!2 g4'maj9 d4'maj9!2>" # s "pluck:2"
+
+
 import Sound.Tidal.Chords
 
 chordList
