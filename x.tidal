@@ -1381,7 +1381,29 @@ d3 $ slow 2 $ off "s" ((# crush (slow 3 "11 5 7 9")).(# amp 0.3).(# pan (range (
 
 --
 
+hush
 
+do
+  let swing n p = nudge (fast n (cat [0, p]))
+  let swingy = swing 16 0.03 -- "<8 8 16 16>" (range 0.02 0.05 (slow 8 $ sine))
+  d1 $ every 1 (# swingy)
+    $ struct "t(7,16,4)"
+    $ palindrome $ slow "4 <2 1> <2 4>"
+    $ palindrome 
+    $ every 3 (+ "3 4 7 10").(# squiz 0.5).(shuffle 8)
+    $ note "<c5 f4 g4 d5>(<3 5 7>,8,4)"
+    # s "flbass"
+    # n "8 .. 18"
+    # legato 8
+  d2 $ every 1 (# swingy)
+    $ note "<c4'maj f3'maj9 g3'maj7 d3'maj7>"
+    # s "piano:5" # legato 1 # att 1 # release 2 # amp 0.1
+    # swingy
+  d3 $ every 1 (# swingy)
+    $ s "[909:0(<4!7 5>,16), <hi lo hi hi lo lo>(3,16,<2 0 0 2 3 0>)]"
+    # amp 0.5 # speed "1 <0.66 1 1.33 1.5 0.5>"
+  d4 $ every 1 (# swingy)
+    $ struct "t(7,16,4)" $ fast 2 $ s "~ kettle warble 808sd" # n "<0 1 2 7 1 0 1 2>" # legato 0.7
 
 import Sound.Tidal.Chords
 
