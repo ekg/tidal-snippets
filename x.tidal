@@ -1550,17 +1550,25 @@ d1 $ every 8 (slow "1.5 2 3 4") $ fast 4 $ s "bassdm:4 <808lt 808ht 808mt 808mc>
   # n "<0 1 2 3 4 5>"
 
 d2 $ every 8 (slow "1.5 2 3 4")
-  $ off 0.125 (rev)
-  $ rotR 0.125
-  $ note "'maj7 'maj9 ~ ~" + note "<d4 d4 ~ <[g4 a4 e5 e5] [a5 d5 e5 g4]>>"
+  $ off 0.125 (jux rev)
+--  $ rotR 0.125
+  $ note "'maj7 'maj9 ~ ~" + note "<d4 <e4 d4 d5> ~ <[g4 a4 e5 e5] [a5 d5 e5 g4]>>"
   -- $ fast 4 $ note "<d4'min7 ~ <d4'min9 ~ g4'maj> <a4'min7 ~ e5'min7>>"
   # s "superpiano"
-  -- # lpf (range 300 500 (slow 16 $ sine))
+  # lpf (range 300 3000 (slow 17 $ sine))
   -- # voice 5 # att 0.1 # rel 1 # sus "<0.3!7 0.5>"
   # velocity (range 0.4 0.6 (rotR 0.125 $ fast 13 $ saw))
   # room 0.5 # amp 0.5 # sz 0.8
 
-d3 $ note "<d4 d4 d4 <[g4 a4 e5 e5] [a5 d5 e5 g4]>>" # s "flbass:8"
+d3 $ every 7 (fast 2) $ every 3 (|+ n "<7 4>")
+  $ note "<d4 d4 d4 <[g4 a4 e5 e5] [a5 d5 e5 g4]>>" # s "flbass:8"
+
+d4
+  $ every' 3 1 (# amp "0.2 0")
+  $ every 8 (fast "2 4 <8 7 9>")
+  $ fast 2 $ s "~ realclaps"
+
+hush
 
 import Sound.Tidal.Chords
 
