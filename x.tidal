@@ -1533,8 +1533,34 @@ d7 $ stut "<3!3 8>" 0.8 0.125
   $ slow 4
   $ note "c4'maj ~ d4'min ~ f4'maj7 ~ e4'min7 ~" # s "supertron" # lpf 1000 # amp 0.1
 
+d6 silence
+d4 silence
+d3 silence
+d5 silence
+d2 silence
+
+
 hush
 panic
+
+
+-- 30-Sep-21 oh my
+
+d1 $ every 8 (slow "1.5 2 3 4") $ fast 4 $ s "bassdm:4 <808lt 808ht 808mt 808mc>"
+  # n "<0 1 2 3 4 5>"
+
+d2 $ every 8 (slow "1.5 2 3 4")
+  $ off 0.125 (rev)
+  $ rotR 0.125
+  $ note "'maj7 'maj9 ~ ~" + note "<d4 d4 ~ <[g4 a4 e5 e5] [a5 d5 e5 g4]>>"
+  -- $ fast 4 $ note "<d4'min7 ~ <d4'min9 ~ g4'maj> <a4'min7 ~ e5'min7>>"
+  # s "superpiano"
+  -- # lpf (range 300 500 (slow 16 $ sine))
+  -- # voice 5 # att 0.1 # rel 1 # sus "<0.3!7 0.5>"
+  # velocity (range 0.4 0.6 (rotR 0.125 $ fast 13 $ saw))
+  # room 0.5 # amp 0.5 # sz 0.8
+
+d3 $ note "<d4 d4 d4 <[g4 a4 e5 e5] [a5 d5 e5 g4]>>" # s "flbass:8"
 
 import Sound.Tidal.Chords
 
