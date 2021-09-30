@@ -1368,7 +1368,7 @@ d1 $ loopAt 2 $ s "break:5"
 
 d1 $ striate "<11 16 15 14 8>" $ loopAt 2 $ s "break:5"
 
-d1 $ n (slow 2 $ segment 11 $ range 0 32 $ sine) # sound "amencutup"
+--d1 $ n (slow 2 $ segment 11 $ range 0 32 $ sine) # sound "amencutup"
 
 d1 $ struct "t(7,16,14)"
   $ loopAt 2 $ every' 7 2 (rev) $ rev $ chop 16 $ every 4 (+ 3) $ sound "break:7" # hpf 500
@@ -1533,11 +1533,13 @@ d7 $ stut "<3!3 8>" 0.8 0.125
   $ slow 4
   $ note "c4'maj ~ d4'min ~ f4'maj7 ~ e4'min7 ~" # s "supertron" # lpf 1000 # amp 0.1
 
+d1 silence
 d6 silence
 d4 silence
 d3 silence
 d5 silence
 d2 silence
+d7 silence
 
 
 hush
@@ -1545,6 +1547,8 @@ panic
 
 
 -- 30-Sep-21 oh my
+
+setcps (125/60/4)
 
 d1 $ every 8 (slow "1.5 2 3 4") $ fast 4 $ s "bassdm:4 <808lt 808ht 808mt 808mc>"
   # n "<0 1 2 3 4 5>"
