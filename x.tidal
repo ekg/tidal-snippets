@@ -1590,6 +1590,44 @@ d3
   $ n "<0 2 8 ~ 8 2 7 9>(7,16,14)" # s "etAbdim7 eride" # amp (range 0.1 0.3 (slow 7 $ sine))
   # legato 1
 
+-- 02-Oct-21
+
+setcps (127/60/4)
+
+d1
+  $ always (# nudge (fast 8 "0 0.03"))
+  $ every 4 (fast 2).(jux rev)
+  $ every' 8 2 (arp "up down")
+  $ slow 2 $ note "c6'maj7 e6'min7 ~ <b5'min7 ~ b6'min9 ~ [b5'min7 e6'min9]>"
+--  # n (slow 3 "3 2 9 1 0")
+  # s "cpluck" # legato (slow 3 "2 1 0.5") # amp 0.25 # lpf (range 500 2000 (slow 8 $ sine))
+--  # hpf 700
+
+d2 $ always (# nudge (fast 16 "0 0.03")) $ n "0 <3 3 9 2> 0 2" # s "cpu2"
+
+d3 $ always (# nudge (fast 16 "0 0.03"))
+  $ fast 4 $ n "~ <7!7 [9 2 5] ~ 8 5>" # s "cpu2"
+
+d4 $ always (# nudge (fast 16 "0 0.03"))
+  $ 0.125 <~ (slow 2 $ note "c4 e4 b4 <c4 e4 b4>"
+              # (fast 3 $ n "3 2 8 4 9") # s "flbass" # legato 1)
+
+d5 $ every 4 (# amp "0.5 0") $ fast 4 $ s "popkick:2"
+
+d6 $ every 4 (# sz 1)
+  $ every 8 (# lpf 300)
+  $ fast 4 $ note "~ <<c4 ~ c5'maj7 ~> <b4 ~ b5'min7> e5'min9 <~ ~ f5'maj9 ~>>"
+  # s "superpiano" # velocity 0.8 # room 0.5 # sz 0.3 # lpf 1000
+
+d1 silence
+d2 silence
+d3 silence
+d4 silence
+d5 silence
+d6 silence
+
+hush
+
 import Sound.Tidal.Chords
 
 chordList
