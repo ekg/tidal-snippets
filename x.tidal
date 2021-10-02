@@ -1321,6 +1321,7 @@ do
   d3 $ "<q q s [q h]>" <~ (struct son $ n "c2" # s "sine:1" # lpf 200)
 
 -- 26-Sep-21
+-- nice
 
 setcps (120/60/4)
 
@@ -1493,8 +1494,8 @@ do
     $ s "bd:4(<3 3 4 3>,8,<0 0 0 1>)"
   --d1 silence
   d2 silence
-  d3 silence
-  d4 silence
+  --d3 silence
+  --d4 silence
 
 -- 27-Sep-21 lunch
 
@@ -1597,6 +1598,8 @@ d4
 
 hush
 
+panic
+
 -- 01-Oct-21
 
 setcps (125/60/4)
@@ -1673,14 +1676,31 @@ d1 $ every 8 (slow 2) $ loopAt 2 $ striate "<16 16 17>" $ sound "~ break:7 break
 
 d2 $ s "808bd:4(3,8) 808mt:4(2,8,2)"
 
-d2 $ every 8 (fast 2).(rev) $ s "808bd:8(5,8)"
+d2 $ every 8 (fast 2).(rev) $ s "jazz:0(5,8)"
 
-d2 $ every 3 (+ n "1 2 1 4")
+d2 $ every 3 (+ n "<[5 2 5 4] [5 2 5 0]>")
   $ every 8 (fast 2).(rev) $ note "<ef4'min>(5,8)" # s "jazz" # legato 1 # amp 0.4
 
 d3 $ fast 2 $ s "~ ~ realclaps:3"
 
+-- d4 $ s "monsterb(5,8)" # speed (1/25) # legato 1
+
+setcps (137/60/4)
+
+d1 $ every 2 (rev) $ n "0 .. 7" # s "808 <metal birds ~> odx 808" # speed (range 0.98 1.01 (slow 7 $ sine))
+
+d2 $ every 4 (+ (fast 2 "3 7 ~ 9")) $ note "c5'min7'o*4" # s "cpu2"
+
+d3
+  $ struct "t(7,16,<14 13 14>)"
+  $ note "<ef5'min7 fs5'maj7 bf5'min7 gs5'min7>/2"
+  # s "jvbass" # legato 2
+
+d4 $ note "c5'min7" # s "superpiano" # legato 2
+
 hush
+
+--d1 $ 
 
 import Sound.Tidal.Chords
 
