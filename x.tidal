@@ -1681,7 +1681,7 @@ d2 $ every 8 (fast 2).(rev) $ s "jazz:0(5,8)"
 d2 $ every 3 (+ n "<[5 2 5 4] [5 2 5 0]>")
   $ every 8 (fast 2).(rev) $ note "<ef4'min>(5,8)" # s "jazz" # legato 1 # amp 0.4
 
-d3 $ fast 2 $ s "~ ~ realclaps:3"
+d3 $ every 8 ((fast 4).(rev).(struct "t(5,8,[0 2 3 0])")) $ fast 2 $ s "~ ~ realclaps:3"
 
 d1 $ silence
 d2 $ silence
@@ -1692,23 +1692,132 @@ d3 $ silence
 setcps (137/60/4)
 
 d1 $ every 2 (rev)
-  $ n "0 .. 7" # s "808lt <metal birds ~> peri 808" # speed (range 0.98 1.01 (slow 7 $ sine))
+  -- $ struct "t(5,8,3)"
+  $ n "0 .. 7" # s "808lt <peri birds ~> peri 808" # speed (range 0.98 1.01 (slow 7 $ sine))
 
-d2 $ every 4 (+ (fast 2 "3 7 ~ 9")) $ note "c5'min7'o*4" # s "cpu2"
+d2 $ every 4 (+ (fast 2 "3 7 ~ 9"))
+  -- $ struct "t(5,8,3)"
+  $ note "c5'min7'o*4" # s "cpu2"
 
 d3
+  -- $ struct "t(5,8,3)"
   $ struct "t(7,16,<14 13 14>)"
   $ note "<ef5'min7 fs5'maj7 bf5'min7 gs5'min7>/2"
   # s "jvbass" # legato 2
 
-d4 $ note "<ef4'min7 fs4'maj7 bf4'min7 gs4'min7>/2"
-  # s "supercomparator" # legato 1 # velocity 0.3 # lpf 2000
+d4
+  -- $ struct "t(5,8,3)" $ slow "1 2 4 8"
+  $ note "<ef4'min7 fs4'maj7 bf4'min7 gs4'min7>/2"
+  # s "supercomparator" # legato 1 # velocity 0.3 # amp 0.2
+  # lpfbus 4 (segment 128 $ (fast 8 $ saw + 0.5) * 2000)
 
 hush
 
 #d1 $ note "c4" # s "supercomparator"
 
 d1 $ s "bev" # lpfbus 1 (segment 128 $ (fast 4 $ saw) * 7000) # legato 1
+
+-- 04-Oct-21
+
+d1 $ every 8 (slow 2) $ loopAt 4
+  $ striate "<16 17 16 7 16 9 16>" $ sound "break:7 break:11 birds:9 break:1"
+  # legato 1
+  # begin (every 4 (fast 2) $ fast 8 $ "0 0.3") # hpf (range 200 300 (slow 8 $ sine))
+
+--
+
+setcps (97/60/4)
+
+d1
+  $ jux (# squiz (fast "2 3 7" $ "11 8 11 9"))
+  $ every 8 (jux rev)
+  $ 0.125 <~ ( s "sid space <stab [stab stab] ~> sundance" # (fast 3 $ n "<0 2 0 8 9 11>"))
+
+d2 $ s "bassdm:3(5,8,<0!4 0 -1 -2 0>)"
+
+d4 $ rotL (1/16) $ fast 8 $ s "clak"
+
+d3 $ note (slow 4 $ "d4'min ~ g4'min ~") # s "blip"
+
+do
+  let pat = "d4'min ~ g4'min ~"
+  let pat = "a5'min ~ d5'min ~"
+  d5 $ slow 4 $ note pat # s "superpiano" # velocity 0.8
+    # delay 0.9 # delayfb 0.4 # delayt 0.5
+    
+d5 silence
+
+--
+
+d1 $ note (slow 8 "'min 'maj") + note "<0 7> 3 5" + note "0 <0 7> 3 -5" # s "superpiano"
+
+--
+
+setcps (125/60/4)
+
+d4 $ fast 2 $ s "voodoo*8" # n "[1 2 3 4]*3" # freq "200 300"
+d4 silence
+
+d5 $ fast "64 128 64 230 64 278" $ s "<sid pluck>" # n "[1 2 3 4]" # freq "100 300 400 500"
+d5 silence
+
+d5 $ juxBy 0.25 rev $ fast 1 $ s "dr(3,8,1)" # n "2 1 7 4 6" # legato 0.5
+d5 silence
+
+d1 $ every' 4 1 (fast 1.5).(rotR (1/8)) $ every 4 (# amp "0.7 0.5 0") $ s "808bd:6*4"
+  # hpfbus 1 (segment 128 $ (slow 7 sine + 0.5) * 130)
+
+d2 $ every 4 (slow 4) $ s "lo(3,8) hi(3,8)" # n (fast 3 "0 1 2 0 3")
+
+d3 $ s "<if invaders>(3,8)" # n "<0 ~ 1 2 3 ~ 4 ~ 5 ~ ~>" # legato 1.5
+
+d4 $ s "linnhats(7,16,8)" # n (every 4 (slow 7) $ slow 2 "2 7 ~ ~ 4 ~ 2 ~ ~ 9 7")
+
+hush
+
+-- d1 $ whenmod 8 7 (fast 2) (sound "bd sn dr55")
+
+d1 $ every 8 ((fast 1.5).(striate 11)) $ fast "4 2/4 4" $ s "bassdm [linnhats:3/4, clap:6/8]"
+d1 silence
+
+d4 $ fast 2 $ s "voodoo*8" # n "[7 1 ~ 2 3 ~ 4 8]*3" # fshift (slow 8 "1000/2 200/2 300 0 100")
+
+d1 $ struct "<t f t>(5,<8 16>,3)" $ s "<mt lt ht>(7,16,7)" # n "8 7 4" # speed (slow 4 "0.5 1 1.5")
+
+d2 $ every 8 (fast 3).(# amp sine) $ s "bd(3,8)"
+
+d3 $ note "ef4 " # s "superhammond" # voice 5
+  -- # fshift "<0 100 75 50 -50>"
+  # vowel "e"
+
+-- setcps (125/60/4)
+
+d1 $ every 8 (loopAt 4) $ slow 2 $ struct "t(5,8)" $ note "g5'min d5'min7 d5'7 g5'min" # s "gtr:0"
+  # legato 2 # hpf "500 300" # triode 0.5 # leslie 0.1
+
+d1 $ slow 2 $ struct "t(7,8)" $ note "g5'maj c5'min g5'maj c5'min g5'min d5'7 g5'min" # s "gtr:0"
+  # legato 1.5 # hpf "500 300" # triode 0.5
+
+d2 $ every 2 (+ note (-5))
+  $ struct "t(<7!3 5 7 3>,8,2)"
+  $ slow 2 $ note 12 + note "g5'min d5'min7 d5'7 g5'min" # s "flbass:2" # legato 2
+
+d2 $ struct "t(3,8,3)" $ slow 2
+  $ note 12
+  -- + note "g5'min d5'min7 d5'7 g5'min"
+  + note "g5'maj c5'min g5'maj c5'min g5'min d5'7 g5'min"
+  # s "flbass:2" # legato 2
+
+d3 $ s "jazz(5,8,2)" # n "0 ~ <10 0> <8 2 9 1>"
+
+
+d1 silence
+
+d2 silence
+d3 silence
+d4 silence
+
+hush
 
 import Sound.Tidal.Chords
 
