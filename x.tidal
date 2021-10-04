@@ -1683,11 +1683,16 @@ d2 $ every 3 (+ n "<[5 2 5 4] [5 2 5 0]>")
 
 d3 $ fast 2 $ s "~ ~ realclaps:3"
 
+d1 $ silence
+d2 $ silence
+d3 $ silence
+
 -- d4 $ s "monsterb(5,8)" # speed (1/25) # legato 1
 
 setcps (137/60/4)
 
-d1 $ every 2 (rev) $ n "0 .. 7" # s "808 <metal birds ~> odx 808" # speed (range 0.98 1.01 (slow 7 $ sine))
+d1 $ every 2 (rev)
+  $ n "0 .. 7" # s "808lt <metal birds ~> peri 808" # speed (range 0.98 1.01 (slow 7 $ sine))
 
 d2 $ every 4 (+ (fast 2 "3 7 ~ 9")) $ note "c5'min7'o*4" # s "cpu2"
 
@@ -1696,11 +1701,14 @@ d3
   $ note "<ef5'min7 fs5'maj7 bf5'min7 gs5'min7>/2"
   # s "jvbass" # legato 2
 
-d4 $ note "c5'min7" # s "superpiano" # legato 2
+d4 $ note "<ef4'min7 fs4'maj7 bf4'min7 gs4'min7>/2"
+  # s "supercomparator" # legato 1 # velocity 0.3 # lpf 2000
 
 hush
 
---d1 $ 
+#d1 $ note "c4" # s "supercomparator"
+
+d1 $ s "bev" # lpfbus 1 (segment 128 $ (fast 4 $ saw) * 7000) # legato 1
 
 import Sound.Tidal.Chords
 
