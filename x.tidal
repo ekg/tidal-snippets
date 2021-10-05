@@ -1863,12 +1863,17 @@ d2 $ s "808bd:8(4,7)" # note "'min"
 
 d3 $ s "[~ 808mt:3](4,7,2)"
 
-d4 $ stut "<2 ~ 3 ~ 2 ~ 2 ~ 7>" 0.7 (1/16)
---  $ every' 4 2 jux
-  $ every 4 (+ n 3) $ s "<808oh cpu:3>(7,14,11)" # djf (slow 8 $ (range 5000 7000 sine))
-  # amp 0.6 # delay 0.5 # delayt 0.133 # delayfb 0.5 # leslie 0.3
+d4 $ rotR (3/14) $ stut "<2 ~ 3 ~ 2 ~ 2 ~ 7>" 0.7 (1/14)
+  $ every 4 (+ n 3) $ s "<808oh cpu:3>(7,14,11)" # lpf (slow 7 $ (range 1000 3000 sine))
+  # amp 0.35 # delay 0.5 # delayt (5/14) # delayfb 0.7 # leslie 0.3 # room 1 # sz 0.4
+  # triode 0.5 # tsdelay "0.5 0.7 0.8" # lpf 1000
 
-d5 $ s "bsguitar" # legato 1
+d5 $ rotR (1/14) $ struct "t(<5 7>,7,<0 0 1 1 2 2>)"
+  $ striate 14
+  $ every 3 (rev) $ every 8 (loopAt 0.85) $ n "8 ~ [7 6 5] ~ 4 [7 [1 2]] 9"
+  # note "d4 e4 g4 d5/2 a4/3"
+  # s "uku"
+  # legato "<1 2 0.75 1 4>"
 
 hush
 
