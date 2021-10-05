@@ -1756,12 +1756,15 @@ d1 $ note (slow 8 "'min 'maj") + note "<0 7> 3 5" + note "0 <0 7> 3 -5" # s "sup
 setcps (125/60/4)
 
 d4 $ fast 2 $ s "voodoo*8" # n "[1 2 3 4]*3" # freq "200 300"
+
 d4 silence
 
 d5 $ fast "64 128 64 230 64 278" $ s "<sid pluck>" # n "[1 2 3 4]" # freq "100 300 400 500"
+
 d5 silence
 
 d5 $ juxBy 0.25 rev $ fast 1 $ s "dr(3,8,1)" # n "2 1 7 4 6" # legato 0.5
+
 d5 silence
 
 d1 $ every' 4 1 (fast 1.5).(rotR (1/8)) $ every 4 (# amp "0.7 0.5 0") $ s "808bd:6*4"
@@ -1790,16 +1793,19 @@ d3 $ note "ef4 " # s "superhammond" # voice 5
   -- # fshift "<0 100 75 50 -50>"
   # vowel "e"
 
--- setcps (125/60/4)
+--
 
-d1 $ every 8 (loopAt 4) $ slow 2 $ struct "t(5,8)" $ note "g5'min d5'min7 d5'7 g5'min" # s "gtr:0"
-  # legato 2 # hpf "500 300" # triode 0.5 # leslie 0.1
+setcps (120/60/4)
 
-d1 $ slow 2 $ struct "t(7,8)" $ note "g5'maj c5'min g5'maj c5'min g5'min d5'7 g5'min" # s "gtr:0"
+d1 $ every 8 (loopAt 4) $ slow 2 $ struct "t(3,8)" $ note "g5'min d5'min7 d5'7 g5'min"
+  # s "uku" # n "<0 0 2 0 8>"
+  # legato 2 # hpf "500 300 600" # triode 0.7 # leslie 0.3
+
+d1 $ slow 2 $ struct "t(3,8)" $ note "g5'maj c5'min g5'maj c5'min g5'min d5'7 g5'min" # s "gtr:0"
   # legato 1.5 # hpf "500 300" # triode 0.5
 
 d2 $ every 2 (+ note (-5))
-  $ struct "t(<7!3 5 7 3>,8,2)"
+  $ struct "t(<3!3 5 7 3>,8,2)"
   $ slow 2 $ note 12 + note "g5'min d5'min7 d5'7 g5'min" # s "flbass:2" # legato 2
 
 d2 $ struct "t(3,8,3)" $ slow 2
@@ -1810,12 +1816,59 @@ d2 $ struct "t(3,8,3)" $ slow 2
 
 d3 $ s "jazz(5,8,2)" # n "0 ~ <10 0> <8 2 9 1>"
 
+d4 $ struct "t(3,8,3)"
+  $ slow 4 $ note "g5(3,8) ~ g5(4,5,1) . d5 d5(4,5) ~ d5 . g5(4,5) ~ g5" # s "moog" # n "1"
+  # legato 2
+  -- # att 0.5 # decay 0.1 # sustain 0.5 # release 2.0 # room 0.5 # sz 0.4
 
 d1 silence
 
 d2 silence
 d3 silence
 d4 silence
+
+hush
+
+-- 05-Oct-21
+
+setcps (84/60/4)
+
+d1 $ fast 4 $ s "808bd:3/2 808lt"
+
+d2 $ fast 2 $ s "~ [realclaps:7/3, cp:4/2]"
+
+d3 $ fast 8 $ s "~ <~ lo ~ psr:8 >"
+
+d4 $ every 8 (fast 2) $ fast 4 $ s "flbass(3,<4 4 8>,1)" # note "<c5 f5 ~ g5>"
+  # n "<0!3 2 8 ~ 0!2 7>"
+  # legato 1.2
+
+d5 $ every 4 (shuffle 8) $ stut 7 0.5 0.125
+  $ s "teclado" # note "<c4'min f4'min ~ g4'min>"
+  # hpfbus 5 (segment 128 $ (slow 7 sine + 0.5) * 1500)
+  -- # room 0.5 # sz 0.4
+
+-- cutups
+
+setcps (104/60/4)
+
+d1
+  $ every 4 (# lpfbus 1 (segment 64 $ (fast 4 sine + 0.5) * 700))
+  $ splice 8 "7 2 0 ~ 1 2 5"
+  $ loopAt 2
+  $ s "break:3"
+  # lpf 300
+
+d2 $ s "808bd:8(4,7)" # note "'min"
+
+d3 $ s "[~ 808mt:3](4,7,2)"
+
+d4 $ stut "<2 ~ 3 ~ 2 ~ 2 ~ 7>" 0.7 (1/16)
+--  $ every' 4 2 jux
+  $ every 4 (+ n 3) $ s "<808oh cpu:3>(7,14,11)" # djf (slow 8 $ (range 5000 7000 sine))
+  # amp 0.6 # delay 0.5 # delayt 0.133 # delayfb 0.5 # leslie 0.3
+
+d5 $ s "bsguitar" # legato 1
 
 hush
 
