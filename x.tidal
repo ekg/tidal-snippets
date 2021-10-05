@@ -1885,23 +1885,81 @@ panic
 
 setcps (87/60/4)
 
-d1 $ fast 2 $ s "kick snare" + n "<[3 7] 9/2 10/3> 9"
+setcps (135/60/4)
 
-d2 $ every 8 (fast 2) $ slow 2 $ struct "t(7,16,4)" $ fast 8 $ s "cpu" # n "{ 8 9 }%5"
+d1 $ fast 2 $ s "kick snare" + n "<[3 7] 9/2 10/3> 9" # amp 0.69
+
+d2 $ struct "t(9,16,<13 12>)" $ every 8 (fast 2) $ slow 2 $ struct "t(7,16,4)" $ fast 8 $ s "cpu" # n "{ 4 8 9 ~ 10 }%5"
 
 d3 $ rotL (1/16) $ struct "t(7,16,14)" $ s "linnhats 808oh"
   # nudge (fast 16 $ "0 0.03") # n "0 ~ ~ 2 8 ~ 3" # lpf (range 3000 5000 (slow 7 $ saw))
 
-d4 $ rotR (1/8)
+d4 $ every 4 (rotR (1/8))
+  $ every 3 (rotR (1/16))
   $ note (arp "<pinkyup updown>" "<cs5'min ~ fs5'min>") # s "flbass" # legato 1 # n "<~ 8 0 1>"
 
 d5 -- $ rotR (1/8)
+  -- $ every 8 ((# s "superhammond").(# amp 0.3))
   $ every' 3 2 ((rev).(stut 4 0.5 (1/8)))
   $ every' 3 1 (# detune 3)
   $ every 4 (# sz 1.3)
   $ every' 16 2 (# sz 0.9)
   $ note "'min ~ 'maj ~" + note (arp "<pinkyup updown>" "<cs4'min ~ fs4'min ~ gs4'min ~>")
   # s "supervibe" # velocity 0.3 # legato 1 # room 0.7 # sz 0.3 # amp 0.3 # resonance 0
+
+-- late night
+
+setcps (117/60/4)
+
+d1 $ every 4 (fast "4 2") $ fast 2 $ s "kick snare" # n (slow 7.5 "0 .. 7")
+
+d2 $ n "3 8 9 1" + (fast 4 $ s "~ 808lt:8" # amp 0.7 # speed (slow 7 "1 0.85 1.15 0.75"))
+
+d3 $ sew "t <f t t ~> <f [f f t] t>" (n "0 .. 15" # s "future") (s "cp:1*16" # n (rev "0!2 0 .. 4 5 .. 3") # speed saw + 0.5)
+
+d4 $ every 3 (shuffle 16) $ n "7 .. 0" # s "bass3 eride/4 chKk" # legato 8
+
+d5 $ s (step "realclaps" "~ 7 ~ 178")
+
+-- d6 $ spread ($) [density 2, rev, slow 2, striate 3, (# speed "0.8")] $ sound "[bd*2 [~ bd]] [sn future]*2 cp jvbass*4"
+
+-- more
+
+setcps (121/60/4)
+
+d1 $ fast 4 $ s "808bd" # n 8 # amp 0.6
+
+d2 $ fast 2 $ n "3 7 8 9" + s "~ snare"
+
+d3 $ struct "t(<5 11 7>,<16 8 19 4>,3)" $ fast 16 $ s "fm" # n (slow 7 "3 8 2 9 2") # legato 1 # begin "<0.5!2 0.2 0.3>"
+
+d4 $ rotR (1/8) $ note "g4 ef5" # s "flbass" # n 8
+
+d5 $ rotR (1/8) $ slow 8 $ note "<g3'min g4'min> ef4'maj" # s "juno" # n 8 # lpf 600
+
+d6 $ note (cat
+           ["g5 ef6",
+             "d5(3,8) bf6",
+             "bf5 f6 ef6 bf6",
+             "ef6 ~ [bf6 f6 bf5]",
+             "g5 [ef5 ef6 [ef7, bf6]]",
+             "[bf5, f5, ef5](5,8)"
+           ])
+  # s "pluck" # n "5"
+  # room 0.5 # sz 0.7
+
+all $ id
+   $ every 8 (struct "t(<7 5 4 9>,<16!7 18>,14)")
+
+d1 silence
+d2 silence
+d3 silence
+d4 silence
+d5 silence
+d6 silence
+
+hush
+panic
 
 import Sound.Tidal.Chords
 
