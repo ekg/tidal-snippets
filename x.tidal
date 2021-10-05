@@ -1850,6 +1850,8 @@ d5 $ every 4 (shuffle 8) $ stut 7 0.5 0.125
 
 -- cutups
 
+setcps (127/60/4)
+
 setcps (104/60/4)
 
 d1
@@ -1859,7 +1861,7 @@ d1
   $ s "break:3"
   # lpf 300
 
-d2 $ s "808bd:8(4,7)" # note "'min"
+d2 $ s "808bd:4(4,7)" # note "'min" # amp 0.2
 
 d3 $ s "[~ 808mt:3](4,7,2)"
 
@@ -1873,9 +1875,33 @@ d5 $ rotR (1/14) $ struct "t(<5 7>,7,<0 0 1 1 2 2>)"
   $ every 3 (rev) $ every 8 (loopAt 0.85) $ n "8 ~ [7 6 5] ~ 4 [7 [1 2]] 9"
   # note "d4 e4 g4 d5/2 a4/3"
   # s "uku"
-  # legato "<1 2 0.75 1 4>"
+  # legato "<1 2 0.75 1 3/2>"
 
 hush
+
+panic
+
+-- eveningtune
+
+setcps (87/60/4)
+
+d1 $ fast 2 $ s "kick snare" + n "<[3 7] 9/2 10/3> 9"
+
+d2 $ every 8 (fast 2) $ slow 2 $ struct "t(7,16,4)" $ fast 8 $ s "cpu" # n "{ 8 9 }%5"
+
+d3 $ rotL (1/16) $ struct "t(7,16,14)" $ s "linnhats 808oh"
+  # nudge (fast 16 $ "0 0.03") # n "0 ~ ~ 2 8 ~ 3" # lpf (range 3000 5000 (slow 7 $ saw))
+
+d4 $ rotR (1/8)
+  $ note (arp "<pinkyup updown>" "<cs5'min ~ fs5'min>") # s "flbass" # legato 1 # n "<~ 8 0 1>"
+
+d5 -- $ rotR (1/8)
+  $ every' 3 2 ((rev).(stut 4 0.5 (1/8)))
+  $ every' 3 1 (# detune 3)
+  $ every 4 (# sz 1.3)
+  $ every' 16 2 (# sz 0.9)
+  $ note "'min ~ 'maj ~" + note (arp "<pinkyup updown>" "<cs4'min ~ fs4'min ~ gs4'min ~>")
+  # s "supervibe" # velocity 0.3 # legato 1 # room 0.7 # sz 0.3 # amp 0.3 # resonance 0
 
 import Sound.Tidal.Chords
 
