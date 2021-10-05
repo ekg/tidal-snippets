@@ -1947,6 +1947,7 @@ d6 $ note (cat
            ])
   # s "pluck" # n "5"
   # room 0.5 # sz 0.7
+  -- # delay 0.7 # delayt 0.75 # delayfb 0.9
 
 all $ id
    $ every 8 (struct "t(<7 5 4 9>,<16!7 18>,14)")
