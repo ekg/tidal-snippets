@@ -1819,8 +1819,8 @@ d3 $ s "jazz(5,8,2)" # n "0 ~ <10 0> <8 2 9 1>"
 d3 $ s "jazz(7,8,2)" # n "0 ~ <10 0> <8 2 9 1>"
 
 d4 $ struct "t(3,8,3)"
-  -- $ slow 2 $ note "g6'min d6'min7 d6'7 g6'min"
-  $ slow 4 $ note "g5(3,8) ~ g5(4,5,1) . d5 d5(4,5) ~ d5 . g5(4,5) ~ g5"
+  $ slow 2 $ note "g6'min d6'min7 d6'7 g6'min"
+  -- $ slow 4 $ note "g5(3,8) ~ g5(4,5,1) . d5 d5(4,5) ~ d5 . g5(4,5) ~ g5"
   # s "pluck" # n "5"
   # legato 2 # speed "1 0.5 2"
   # room 0.25 # sz "<1.1 0.9> 0.9 1.1"
@@ -1852,6 +1852,8 @@ d5 $ every 4 (shuffle 8) $ stut 7 0.5 0.125
   $ s "teclado" # note "<c4'min f4'min ~ g4'min>"
   # hpfbus 5 (segment 128 $ (slow 7 sine + 0.5) * 1500)
   -- # room 0.5 # sz 0.4
+
+hush
 
 -- cutups
 
@@ -1891,6 +1893,15 @@ panic
 setcps (87/60/4)
 
 setcps (135/60/4)
+
+hush
+
+d1 silence
+d2 silence
+d3 silence
+d4 silence
+d5 silence
+d6 silence
 
 d1 $ fast 2 $ s "kick snare" + n "<[3 7] 9/2 10/3> 9" # amp 0.69
 
@@ -1986,6 +1997,7 @@ setcps (121/60/4)
 d1  $ every 8 (+ note (slow 8 "<-5 7>"))
   $ note "[d5 <bf5 bf4> f5 ef5](<3 1 3 0 2 1 0 5>,7) <bf6 ef5 bf5 ef4>" # s "pluck" # n "<[4 3 . 8] 4 4 2>"
   # room 0.5 # sz 0.7
+  # amp 0.4
 
 d2 -- $ every 8 (+ note "7")
   $ note "<4 5 4 4 5 5 3>" + s "kick*4"
@@ -2002,7 +2014,7 @@ d3 $ every 8 (+ note "7")
 d4 $ fast 2 $ s "~ clap" # n "<0 1 2 0>" # pan (range "-0.5" "0.85" (slow 7 sine))
   # hpfbus 2 (segment 128 (range 500 4000 (fast "<0!4 2 0!4 7>" sine)))
 
-d5 $ struct "t(11,16,14)" $ fast 2 $ n "0 0 94 <382  7 8> 2 0 0" # s "dr55"
+d5 $ struct "t(11,16,14)" $ fast 2 $ n "0 0 94 <382  7 8> 2 0 0" # s "dr55" # lpf 3000
 
 all $ id
 
