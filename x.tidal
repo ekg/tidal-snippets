@@ -1703,7 +1703,7 @@ d3
   -- $ struct "t(5,8,3)"
   $ struct "t(7,16,<14 13 14>)"
   $ note "<ef5'min7 fs5'maj7 bf5'min7 gs5'min7>/2"
-  # s "jvbass" # legato 2
+  # s "jvbass" # legato 2 # speed 1.4
 
 d4
   -- $ struct "t(5,8,3)" $ slow "1 2 4 8"
@@ -2009,7 +2009,7 @@ d3 $ every 8 (+ note "7")
                ,"ef5 f4 c5"
                ,"d5(5,7) . f4 ef4 d4"
                ,"ef5 f4(3,9) ef5 c5"
-               ]) # s "flbass" # n "8"
+               ]) # s "flbass" # n "8" # speed 1.009
 
 d4 $ fast 2 $ s "~ clap" # n "<0 1 2 0>" # pan (range "-0.5" "0.85" (slow 7 sine))
   # hpfbus 2 (segment 128 (range 500 4000 (fast "<0!4 2 0!4 7>" sine)))
@@ -2022,6 +2022,32 @@ all $ id
 
 hush
 panic
+
+-- 11:17 08-Oct-21
+
+setcps (107/60/4)
+
+d1 $ every 8 ((fast 2).(stut 4 0.5 0.125).(# amp (fast 7 sine) )) $ n "0 2 0 2" # s "cpu"
+
+d3 $ every 3 ((# room 0.3).(# sz 0.9))$  every 4 (# amp 0) $ n "4(14,16,7)" # s "cpu"
+  # room 0.1 # sz 1
+
+d3 silence
+
+d2 $ every 3 (|+ n "7")
+  $ every 7 (|+ n "3")
+--  $ every (1/3) (# delayt 0.33)
+  $ note (cat ["e4 e4 ~ ~ <b5 f5 c5 g5> ~",
+                "e4 <b4 b4*2> b5 ~ <b5 f5 c5> ~",
+                "b5 e5 e4 <g5 f5> ~",
+                "e5 e5*3 e4*2 ~"
+                ] ) # s "flbass:3"
+  # delay 0.25 # delayt 0.25 # delayfb 0.6
+
+d4 $ stut (every 7 (|+ "<7 8 9>") $ fast 1 "0") 0.5 ("0" + (range 0.120 0.131 (fast 7 $ sine)))
+  $ slow 4
+  $ note "e4'min7 b4'min7 f4'maj7 b4'min" # s "superpiano" # velocity 0.7
+  # room 0.3 # sz 0.9
 
 import Sound.Tidal.Chords
 
