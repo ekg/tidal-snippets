@@ -1844,7 +1844,8 @@ d2 $ fast 2 $ s "~ [realclaps:7/3, cp:4/2]"
 
 d3 $ fast 8 $ s "~ <~ lo ~ psr:8 >"
 
-d4 $ every 8 (fast 2) $ fast 4 $ s "flbass(3,<4 4 8>,1)" # note "<c5 f5 ~ g5>"
+d4 $ every 3 (# amp 0)
+  $ every 8 (fast 2) $ fast 4 $ s "flbass(3,<4 4 8>,1)" # note "<c5 f5 ~ g5>"
   # n "<0!3 2 8 ~ 0!2 7>"
   # legato 1.2
 
@@ -2106,7 +2107,7 @@ d4 -- $ every 8 (slow 2) -- $ fast 2 $ note "~ <c4 c3 g3 [c3 <c3 g3>] c4 c3 g3 [
          note "[a4 c4] ~ [e4 b4] [g4 d5]",
          note "[a4 a4] ~ c4 [b3 d4]"
         ]
-  # stack [ s "[cpluck, flbass]" # n "<0 1 0 1 0 2 0 8>"
+  # stack [ s "flbass" # n "<0 1 0 1 0 2 0 8>"
             # speed "<1 1 1 <2 1.5 1 1 1>>"
             # release 0.5 
             # room 0.3 # sz 0.6 # orbit 5,
@@ -2120,6 +2121,8 @@ d5 $ every' 4 2 (stut 2 0.7 (1/16))
   $ every 8 (# speed 0.5) $ fast 2 $ s "808lc:8*2 ~" -- # n "0 2 3 4"
   # speed (range 0.98 1.01 (slow 16 $ sine))
   # amp 0.6
+
+d5 silence
 
 hush
 panic
