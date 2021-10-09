@@ -2070,32 +2070,54 @@ hush
 
 -- http://studio.dubroom.org/tutorials-computerdub05.htm
 
-setcps (150/60/4)
+setcps (135/60/4)
 
 d1 $ fast 8 $ every 7 (# amp 0) $ s "[~ hh:8, 808oh, 808oh:3/16]"
   # lpf (range 3000 6000 (slow "32 16" $ sine))
 
 
-d2 $ n "~ ~ 0 ~" # s "snare"
+d2
+  $ every 4 ((# hpf 1000).(# delay "0 0 0.5 0"))
+  $ n "~ ~ 0 ~" # s "[ snare, sd ]"
+  # delay 0
+  # delayt 0.333
+  # delayfb 0.333
 
 -- steppers
 d3 $ s "[808bd:4/3, bd:7]*4" # amp 0.6
 
 -- one drop
-d3 $ s "~ ~ [808bd:4/3, bd:7] ~" # amp 0.6
+d3 -- $ every 8 (stut 2 0.5 0.125)
+  $ s "~ ~ [808bd:4/3, bd:7] ~" # amp 0.6
 
 -- two drop
 d3 $ fast 2 $ s "[808bd:4/3, bd:7] ~" # amp 0.6
 
-d4 $ fast 2 $ note "~ <c4 c3 g3 [c3 <c3 g3>] c4 c3 g3 [ef3 ef4]>"
-  # stack [ s "flbass" # n "<0 1 0 1 0 2 0 8>"
-            # speed "<2 4>"
-            # release 0.5 
-            # room 0.3 # sz 0.7 # orbit 5,
-            s "sine:0" # release 0.5 # amp 0.7 ]
-  # amp (range 0.4 0.55 (fast 7 $ saw))
+d4 $ slow 4
+  -- $ note (stack ["g3(3,19,5)", "c4(2,17,3)", "d4(4,15,3)"])
+  $ note "g3 c4 d4 g4 c4 d4 g3 g3"
+  # s "sine" # speed (1/2) # release 0.25 
 
-d5 $ every 8 (# speed 0.5) $ fast 2 $ s "808lc:8*2 ~" -- # n "0 2 3 4"
+d4 -- $ every 8 (slow 2) -- $ fast 2 $ note "~ <c4 c3 g3 [c3 <c3 g3>] c4 c3 g3 [ef3 ef4]>"
+  $ slow 2
+  $ every' 8 7 (fast 2)
+  $ cat [note "[c4 c4 c4]/2 ~ b4 a4",
+         note "[a4 a4 a4] ~ c4 b4",
+         note "[a4 c4] ~ [e4 b4] [g4 d5]",
+         note "[a4 a4] ~ c4 [b3 d4]"
+        ]
+  # stack [ s "[cpluck, flbass]" # n "<0 1 0 1 0 2 0 8>"
+            # speed "<1 1 1 <2 1.5 1 1 1>>"
+            # release 0.5 
+            # room 0.3 # sz 0.6 # orbit 5,
+            --s "pluck" # speed (1/2) # legato 1,
+            s "pluck" # speed (1/2) # release 0.5 # amp 0.5 ]
+  # amp 0.7 # lpf (range 300 600 (slow 7 $ sine))
+  -- # vowel "e a e o"
+  -- # amp (range 0.5 0.65 (fast 7 $ saw))
+
+d5 $ every' 4 2 (stut 2 0.7 (1/16))
+  $ every 8 (# speed 0.5) $ fast 2 $ s "808lc:8*2 ~" -- # n "0 2 3 4"
   # speed (range 0.98 1.01 (slow 16 $ sine))
   # amp 0.6
 
@@ -2124,8 +2146,10 @@ d1 $ stack [
        note "c4'min", note "~", note "~"]
   ] # s "superpiano" # release 0.5
 
+d2 $ "bd sd"
 
--- 16:22 09-Oct-21
+d3 $ "hh:8(14,16,14)"
+
 
 
 
