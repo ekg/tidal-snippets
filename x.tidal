@@ -2153,8 +2153,40 @@ d2 $ "bd sd"
 
 d3 $ "hh:8(14,16,14)"
 
+hush
 
+-- 10:30 10-Oct-21
 
+sock <- carabiner tidal 4 (0.175)
+
+d1 $ s "bd*4" # n 0 # amp 0.6 # lpf 300
+
+d2 $ always (# nudge (fast 8 $ "0 0.05"))
+  $ every 8 (fast "1 3") $ fast 2 $ s "~ realclaps" # n "[3, 4]"
+
+d3 $ always (# nudge (fast 16 $ "0 0.03"))
+  $ every 8 (stut 3 0.5 (1/16))
+  $ struct "t(14,16,14)" $ fast 4 $ every 8 (rev) $ s "linnhats(3,8)" # n (fast 3 "<4 4 3 2 8 3 4>")
+
+d5 $ s "dr55*16" # hpf (range 1000 3000 (fast 7 $ sine))
+
+d4 $ struct "t(3,8)" $ note "<b4 g4 [b4 g4] a4>"
+  # s "flbass" # legato 2 # release 1.0
+
+d1 silence
+d2 silence
+d3 silence
+d4 silence
+
+-- 09:13 11-Oct-21
+
+d1 $ slow 4 $ note "e3'min7 b3'min7" # s "fm:10"
+  # legato 1 # lpf 1000
+  # begin 0.2 # room 0.3 # sz 0.9 # amp 0.3
+
+d2 $ s "kick:2(3,8)" # amp 0.7
+
+hush
 
 import Sound.Tidal.Chords
 
