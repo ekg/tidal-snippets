@@ -2184,40 +2184,41 @@ d4 silence
 --setcps (137/60/4)
 setcps (115/60/4)
 
-d1 $ slow 2 $ note (cat ["e3'min7"
-               ,"b3'min7"
-               ,"e3'min9(3,8,2)"
-               ,"b3'min9"
-               ,"e3'min7(5,8)"
-               ,"b3'min7(5,8)"
-               ]
-          ) # s "fm:10"
-  # legato 1 # lpf (range 300 1000 (slow 16 $ sine))
-  # begin 0.2 # room 0.3 # sz 0.99 # amp 0.2
-
-d2 $ s "kick(<3!3 5 2 3 3 7>,8)" # n "2 3 0 2 7 8" # amp 0.6 # crush (fast 7 $ "8 2 8 9 6" )
-
-d3 $ s "dr55(<15 14 15 16>,16,<2 3 2 2 7>)" # lpf (range 1000 7000 (fast 7 $ sine))
-  # crush (quantise 1 $ range (3) (14) $ slow 16 $ cosine)
-
-d4 $ fast 2 $ s "~ [realclaps, cp]" # n "[ 0, <5 <7 3>> ]"
-
-d5 $ stut 3 0.5 2 $ slow 16 $ note "e4 b4" # s "gtr:2" # lpf 300 # legato 1 # amp 0.2
-
-d6 $ every 8 (# crush "3 7 2")
-  $ every 3 (# crush 8)
-  $ stut 7 0.5 0.25 $ arp "up" $ slow 2 $ note "e4'min11 b4'min11"
-  # s "superpiano"
-  # velocity 0.9 # room 0.15 # sz 0.95 # hpf 100
-
-d6 silence
-d5 silence
-d4 silence
-d3 silence
-d2 silence
-d1 silence
+do
+  let adj = always (note "0" + )
+  let vary = every 3 (note (slow 2 "-7 12 5") + )
+  d1 $ adj $ vary
+    $ slow 2 $ note (cat ["e3'min7"
+                         ,"b3'min7"
+                         ,"e3'min9(3,8,2)"
+                         ,"b3'min9"
+                         ,"e3'min7(5,8)"
+                         ,"b3'min7(5,8)"
+                         ]
+                    ) # s "fm:10"
+    # legato 1 # lpf (range 300 1000 (slow 16 $ sine))
+    # begin 0.2 # room 0.3 # sz 0.99 # amp 0.2 # pan (range "-0.5" "0.5" (fast 3 $ square))
+  d2 $ s "kick(<3!3 5 2 3 3 7>,8)" # n "2 3 0 2 7 8" # amp 0.5 # crush (fast 7 $ "8 2 8 9 6" )
+  d3 $ s "dr55(<15 14 15 16>,16,<2 3 2 2 7>)" # lpf (range 1000 7000 (fast 7 $ sine))
+    # crush (quantise 1 $ range (3) (14) $ slow 16 $ cosine) # shape 0.1
+  d4 $ every 16 ((# delay 0.5).(# delayfb 0.95).(# delayt (1/16)))
+    $ fast 2 $ s "~ [realclaps, cp]" # n "[ 0, <5 <7 3>> ]"
+  d5 $ adj $ vary $ stut 3 0.5 2 $ slow 16 $ note "e4 b4" # s "gtr:2" # lpf 300 # legato 1 # amp 0.2
+  d6 $ adj $ vary $ every 8 (# crush "3 7 2")
+    $ every 3 (# crush 8)
+    $ slow 8
+    $ stut 7 0.5 0.25 $ arp "up" $ slow 2 $ note "e4'min11 b4'min11"
+    # s "superpiano"
+    # velocity 0.9 # room 0.15 # sz 0.95 # hpf (range 3000 100 (slow 9 $ sine))
+  d6 silence
+  d5 silence
+  d4 silence
+  d3 silence
+  d2 silence
+  d1 silence
 
 hush
+panic
 
 import Sound.Tidal.Chords
 
