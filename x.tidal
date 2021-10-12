@@ -2223,3 +2223,5 @@ import Sound.Tidal.Chords
 
 chordList
 scaleList
+
+sock <- carabiner tidal 4 (0.175)
