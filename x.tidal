@@ -2224,6 +2224,24 @@ do
 hush
 panic
 
+-- 18:11 12-Oct-21
+
+setcps (140/60/4)
+
+d1 $ s "808bd:0" # shape (slow 8 "0.9 0.93 0.87 0.88") # amp 0.5
+
+d2 $ every 8 (# sz 0.9)
+  $ every 7  ((# delay 0.5).(# delayt 0.5).(# delayfb 0.5))
+  $ s "~ ~ [dr55:3, clap:3] ~" # hpf 1000 # room 0.2 # sz 0.1
+
+d3 $ s "<hh tabla2>(7,16)"
+  # n (slow 7 "7 3 2 8 1 8") # lpf (fast 3 "3000 4000 5000") # hpf 5000 # amp 1
+
+d4 $ every 3 (stut 3 0.7 (1/7))
+  $ stut 2 0.5 (1/8) $ note "<e5!7 g5 d5!7 b5>(<3!7 5>,8)" # s "flbass" # n "0 0 1 3" # legato 1
+
+hush
+
 import Sound.Tidal.Chords
 
 chordList
