@@ -2178,6 +2178,7 @@ d1 silence
 d2 silence
 d3 silence
 d4 silence
+d5 silence
 
 -- 09:13 11-Oct-21
 
@@ -2210,12 +2211,15 @@ do
     $ stut 7 0.5 0.25 $ arp "up" $ slow 2 $ note "e4'min11 b4'min11"
     # s "superpiano"
     # velocity 0.9 # room 0.15 # sz 0.95 # hpf (range 3000 100 (slow 9 $ sine))
-  d6 silence
-  d5 silence
+  --d6 silence
+  --d5 silence
   d4 silence
   d3 silence
   d2 silence
-  d1 silence
+  --d1 silence
+  
+--d1 $ s "bd*4"
+--d1 silence
 
 hush
 panic
@@ -2225,4 +2229,4 @@ import Sound.Tidal.Chords
 chordList
 scaleList
 
-sock <- carabiner tidal 4 (0.175)
+sock <- carabiner tidal 4 (0.29)
