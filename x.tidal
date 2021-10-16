@@ -2269,10 +2269,16 @@ panic
 
 setcps (135/60/4)
 
+setcps (90/60/4)
+
 do
   let adj = always (note "2" + ) -- "2 7" nice
   let vary = every 3 (note (slow 4 "3 12 5") + )
+  let break = every 9 (# amp 0)
   d1
+    $ break
+    $ every 8 (slow 2)
+    $ every' 3 1 (stut "<5 2 3 1 2>" 0.5 (2/13))
     $ sew "t(<3!7 7>,13)"
     (sew "t(7,13,<0 2>)" (s "bd:7*13") (s "808bd:4*13"))
     (struct "t(9,13,3)" $ every 4 (+ "0 1 3 7")
@@ -2281,26 +2287,31 @@ do
      # speed (fast 7 "1 0.66 1.05 1.33 1.07")
     )
   d2
+    $ break
+    $ every 8 ((fast "2 3 4").(rev))
+    $ every' 3 1 (stut "<7 3 1 2>" 0.5 (1/13))
     $ every 3 (# legato 0.5)
     $ every 4 (# legato 1.5)
     $ struct "t(<9!7 11>,13,2)"
-    $ s (fast 1.5 "<realclaps sd:7 cp:7>*13") # speed (range 0.99 1.01 (slow 7 $ sine))
-    # legato 1.1 # amp 0.5 # att (range 0.2 0.1 (slow 8 saw)) # rel 1 # decay 0.7
+    $ s (fast 1.5 "<realclaps:7 <sd:7 ~ ~> cp:7 ~>*13") # speed (range 0.99 1.01 (slow 7 $ sine))
+    # legato (range 1.1 0.9 (slow 8 $ sine))
+    # amp 0.6 # att (range 0.2 0.1 (slow 8 saw)) # rel 1 # decay 0.7
   d3 $ every 9 (# amp 0)
     $ stut 13 0.35 (3/13)
     $ slow 4 $ adj $ vary
     $ note "-12" +  note "'maj7"
-    # s "supercomparator" # lpf 500 # room 0.7 # sz 0.9 # amp 0.2
+    # s "supercomparator" # lpf (range 500 300 (slow 8 $ cosine)) # room 0.7 # sz 0.9 # amp 0.05
   d4 $ every 3 (# amp 0) $ stut 3 0.5 (3/13)
-    $ splice 13 "9 1 <~ 3> 7 <[9 9 8] 8 9 ~> <1 ~> 12"
-    $ arpg (struct "t(9,13,9)" $ slow 4 $ adj $ vary $ note "'maj9" # s "superpiano"
-            # hpf 2000 # lpf 3000 # room 0.5 # sz 0.99 # amp 0.23)
+    $ splice 13 "9 1 <~ 3> 7 <[9 9 8] 8 9 ~> <1 ~> 2"
+    $ arpg (struct "t(5,13,9)" $ slow 4 $ adj $ vary $ note "'maj9" # s "superpiano"
+            # hpf 2000 # lpf 3000 # room 0.5 # sz 0.97 # amp 0.23 # waveloss 20)
   --d1 silence
   --d2 silence
   --d3 silence
-  --d4 silence
+  d4 silence
 
 hush
+panic
 
 import Sound.Tidal.Chords
 
