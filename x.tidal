@@ -1428,7 +1428,7 @@ do
     # amp 0.5 # speed "1 <0.66 1 1.33 1.5 0.5>"
   d4 $ every 1 (# swingy)
     $ struct "t(7,16,4)" $ fast 2 $ s "~ kettle warble 808sd" # n "<0 1 2 7 1 0 1 2>" # legato 0.7
-  --d1 silence
+  d1 silence
   --d2 silence
   --d3 silence
   --d4 silence
@@ -2255,7 +2255,15 @@ d5 $ struct "t(<3!3 5 3!3 7>,8)" $ slow 25
 
 hush
 
+-- 13-Oct-21
 
+setcps (120/60/4)
+
+--d1 $ s "made2(3,8)" # legato 2 # hpf 9000
+
+d1 $ arp "up down" (note "fs4'maj11") # s "<supersaw superhammond superpiano supermandolin>" # velocity 1 # amp 0.4
+
+panic
 
 import Sound.Tidal.Chords
 
