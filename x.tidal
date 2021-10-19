@@ -2355,10 +2355,11 @@ d4 silence
 setcps (113/60/4)
 
 do
+  let trig = id -- qtrigger 1
   let filt = lpf (range 700 (range 7000 10000 (slow 8 sine)) (fast 7 sine))
   let adj = always (note (slow 8 ("0" + "0 0 0 7")) + )
   let swing = (# nudge (fast 16 "<0 -0.004> <<0.03 0.02> 0.01>"))
-  d1 $ swing
+  d1 $ trig $ swing
     $ every 5 (# pan (range "0.3" "0.7" (slow 7 $ sine)))
     $ every 4 (# crush "8 7 <3 5>")
     $ every 3 (# amp "0.5 0")
@@ -2368,7 +2369,7 @@ do
     # amp 0.35
     # room 0.02
     # filt
-  d2 $ swing
+  d2 $ trig $ swing
     $ every 9 (sew "t(6,8)"
                 (note "<e4'sus4 gs4'sus4>(4,17)" # s "supermandolin superhammond"
                  # room 0.9 # sz 0.9 # amp 0.3 # lpf (range 1000 3000 (slow 18 $ sine))))
@@ -2376,16 +2377,17 @@ do
     # speed (fast 4 "1.0 <1.5!7 0.75>") # sz 0.9
     # room 0.02
     # filt
-  d3 $ swing $ adj
+  d3 $ trig $ swing $ adj
     $ every 9 (stut 5 0.7 (1/7))
     $ every 2 (+ note "[0,<3 5 ~>,<7 ~>]")
-    $ arpg $ slow 5 $ note "e5'sus4 gs4'sus9" # s "[<made:3 superpiano>/2, flbass:7, teclado:4/3]"
+    $ arpg $ slow 5 $ note "e5'sus4 gs4'sus9" # s "[<superhammond superpiano>/2, flbass:7, teclado:4/3]"
     # n "0 1 0 2 0 3 0"
+    -- # delay 1 # delayt (1/4) # delayfb 0.7
     -- + n "0 7 0 5"
     # amp 0.5
     # hpf 40 # lpf (range 3000 7000 (fast 3 sine)) # amp 0.03 # room 0.3
     # sz (slow 8 "0.97 0.9 0.76 0.8 0.9") # legato 1
-  d4 $ swing $ adj
+  d4 $ trig $ swing $ adj
     $ every 3 (# amp "0.3 0")
     $ note "<e2 gs2 e2 e2>(<3!7 5!2>,8,<0!8 2>)" # s "sine" # legato 1 # amp (range 0.2 0.3 (fast 7 $ sine))
   --d1 silence
@@ -2394,6 +2396,27 @@ do
   --d4 silence
 
 hush
+
+-- 12:48 19-Oct-21
+
+setcps (90/60/4)
+
+d1 $ every' 8 1 (# amp "0.5 0 0 0")
+  $ every 3 (struct "t(3,8)")
+  $ every 4 ((# room "0 0 <0 0.9> 0 0 0.5").(# sz "0 0.8"))
+  $ every' 4 1 (# crush "7 8 4")
+  $ struct "t(14,16,1)" $ s "[peri:2, oh:3/3]" # crush 9
+
+d2 $ every 4 ((# room 0.5).(# sz 0.8))
+  $ s "~ ~ [sd:1/2, sd:3] ~"
+
+d3 $ struct "t(1,8)" $ s "[ 808bd:4, 808bd:3 ]"
+
+d4 $ (struct "t(<7 5 2 1 5 2 1 3 3>,16)") $ note "<e3 e3 g3 b2>" # s "[rave2:4, sine]"
+
+hush
+
+-- 
 
 import Sound.Tidal.Chords
 
