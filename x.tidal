@@ -2349,6 +2349,52 @@ d2 silence
 d3 silence
 d4 silence
 
+-- 21:01 17-Oct-21
+-- through 11:09 19-Oct-21
+
+setcps (113/60/4)
+
+do
+  let filt = lpf (range 700 (range 7000 10000 (slow 8 sine)) (fast 7 sine))
+  let adj = always (note (slow 8 ("0" + "0 0 0 7")) + )
+  let swing = (# nudge (fast 16 "<0 -0.004> <<0.03 0.02> 0.01>"))
+  d1 $ swing
+    $ every 5 (# pan (range "0.3" "0.7" (slow 7 $ sine)))
+    $ every 4 (# crush "8 7 <3 5>")
+    $ every 3 (# amp "0.5 0")
+    $ every 11 (stut 2 0.7 (1/16))
+    $ every 9 ((stut 7 0.7 (1/8)).(struct "t(5,7)"))
+    $ struct (binaryN 8 "73 <99!3 9>") $ s "[808lt, <[<ab:10 ab:10(3,7)> ab:9 ab:7] 808bd:3!3>]"
+    # amp 0.35
+    # room 0.02
+    # filt
+  d2 $ swing
+    $ every 9 (sew "t(6,8)"
+                (note "<e4'sus4 gs4'sus4>(4,17)" # s "supermandolin superhammond"
+                 # room 0.9 # sz 0.9 # amp 0.3 # lpf (range 1000 3000 (slow 18 $ sine))))
+    $ (fast 4 $ every 7 (|+| n "<1 2 3 4>(3,8)") $ s "~ gretsch" # n (slow 4 "1 2 3 0 4 7 4 0 2"))
+    # speed (fast 4 "1.0 <1.5!7 0.75>") # sz 0.9
+    # room 0.02
+    # filt
+  d3 $ swing $ adj
+    $ every 9 (stut 5 0.7 (1/7))
+    $ every 2 (+ note "[0,<3 5 ~>,<7 ~>]")
+    $ arpg $ slow 5 $ note "e5'sus4 gs4'sus9" # s "[<made:3 superpiano>/2, flbass:7, teclado:4/3]"
+    # n "0 1 0 2 0 3 0"
+    -- + n "0 7 0 5"
+    # amp 0.5
+    # hpf 40 # lpf (range 3000 7000 (fast 3 sine)) # amp 0.03 # room 0.3
+    # sz (slow 8 "0.97 0.9 0.76 0.8 0.9") # legato 1
+  d4 $ swing $ adj
+    $ every 3 (# amp "0.3 0")
+    $ note "<e2 gs2 e2 e2>(<3!7 5!2>,8,<0!8 2>)" # s "sine" # legato 1 # amp (range 0.2 0.3 (fast 7 $ sine))
+  --d1 silence
+  --d2 silence
+  --d3 silence
+  --d4 silence
+
+hush
+
 import Sound.Tidal.Chords
 
 chordList

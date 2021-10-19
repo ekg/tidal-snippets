@@ -12,7 +12,7 @@ slow 4 $
 note "<c5'min7 ef4'maj7 bf4'min7 f4'min7/2>(<3!7 7>,16,2)" #
 s "piano:7 sine" # vowel "a e o e" # gain 0.7
 
-d1 $ every 17 (fast 8) $ 
+d1 $ every 17 ((# delay 0.9).(# delayfb 0.3).(# delayt (1/8))) $ 
 every 8 (fast 4) $
 every 9 (jux rev) $
 stut "<7!3 9 2 0>" 0.3 (1/8) $
@@ -20,17 +20,21 @@ slow 2 $
 note "<c5'min7 ef4'maj7 bf4'min7 f4'min7/2>(<3!7 7>,16,2)" #
 s "piano/2 sine" # vowel "a <e e ~ i> o e" # gain 0.7
 
-d2 $ slow 2 $ n "<1 3 27 18> 0(12,16,14)" # s "linnhats" # cutoff (range 0 10000 (slow 16 sine))
+d2 $ always (# nudge (fast 8 "0 0.03"))
+  $ slow 2 $ n "<1 3 27 18> 0(12,16,14)" # s "linnhats" # cutoff (range 0 10000 (slow 16 sine))
 
 -- 2239169034
 d3 $ stack [
   slow 2 $ struct (binaryN 32 69) $ s "[bd, 808bd:1]",
   rarely (0.125 ~>) $ s "~ sd" # gain 1.2,
   s "< ~ [~ ~ ~ ho:4]>" # hcutoff 6000 # gain 0.8
-  , whenmod 8 6 (# gain 0) $ chop 16 $ s "<lidvox:12!2  ~ ~ lidvox:24!2 ~ ~ lidvox:0>" |+ up "<0 [0 -1 0] 3>" # gain (stitch (binaryN 16 171) "0.7" "0")
+  --, whenmod 8 6 (# gain 0) $ chop 16 $ s "<lidvox:12!2  ~ ~ lidvox:24!2 ~ ~ lidvox:0>" |+ up "<0 [0 -1 0] 3>" # gain (stitch (binaryN 16 171) "0.7" "0")
 ]
 
-d4 $ fast 4 $ note "~ <c5 ~ bf5 ~>/3" # s "bass" # n (slow 8 "0 2 0 0") # begin "<0 0.1 0.3>" # cutoff 300
+d4 $ fast 4 $ note "~ <c3 ~ <f2 e3 e3> ~>/3" # s "sine" # n (slow 8 "0 2 0 0") # begin "<0 0.1 0.3>" # cutoff 300
+  # gain 1
+  # room 0.5 # sz 0.3
+  -- # delay 0.25 # delayfb 0.3 # delayt (1/8)
 
 hush
 
