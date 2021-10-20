@@ -2467,15 +2467,16 @@ setcps (103/60/4)
 
 do
   let space = every' 8 1 (# amp 0)
-  d1 $ space $ s "reverbkick(4,8)"
-  d2 $ space $ every 8 (fast "1 1 4") $ fast 2 $ s "~ clap"
+  d1 $ space $ s "[world:0, reverbkick](4,8)"
+  d2 $ space $ every 8 (fast "1 1 4") $ fast 2 $ s "~ [cp, realclaps]"
   d3 $ space $ fast 12 $ s "808oh" # n "<8 7 4 8 4>" # waveloss 1 # speed "1 1 0.8 1.1 0.8 0.9"
     # room 0.7 # sz 0.8 # gain (range 0.5 0.7 (slow 8 sine))
     # lpf 4000 # delay 0.5 # delayt (1/3) # legato (range 0.75 0.3 (slow 8 saw))
-  d5 $ space $ every 8 (jux rev) $ slice 8 "0 2 0 <2 2 3 4>" $ n "0" # "break" # legato 2
+  d5 $ space $ every 8 (jux rev) $ slice 8 "0 2 0 <2 2 3 4>" $ n "0" # "break" # legato 2 # gain 1.2
   d4 $ always (# gain "0.8 0.75 0.9 0.75")
     $ struct (every 8 (fast 2) $ fast 2 "t f t f t f")
-    $ off 0.25 ((# gain 0.5).(# crush 8))
+    $ off 0.25 ((# gain 0.5).(# crush 12).(# distort 0.1))
+    $ off 0.25 (+ (slow 4 (n "-5 7 -5 -3")))
     $ slow 8
     $ note (cat ["d'7 d'min c'min [g, b]",
                  --"a'min c'maj d'min",
@@ -2490,16 +2491,27 @@ do
                  --"d'maj7 f'maj f'min [c'maj f'maj c'maj [e'min, b'maj]]"])
                 ])
     # stack [s "uku" # legato 2 # lpf 300,
-             s "superpiano" # velocity 0.7]
+             s "superpiano" # velocity 0.6 # gain 0.8,
+             s "supercomparator"]
     # room 0.5 # sz 0.8
     # rel 0.9 # att 0.1 # decay 0.5
     # lpf (range 300 1000 (slow 16 sine))
     # hpf (range 100 800 (slow 16 cosine))
-  d6 $ stut 2 0.9 (1/6) $ arpg
+  d6 $ stut 2 0.9 (1/6)
+    $ off 0.25 (+ (slow 4 (n "-5 7 -5 -3")))
+    $ arpg
     $ note (slow 8 (cat ["d'7 d'min c'min [g, b]",
                           "g'maj7 g'7 c'min [e'min, b'maj]",
                           "g'maj c'6"]))
     # n "0 1 2 3" # s "flbass"
+  --d1 silence
+  --d2 silence
+  --d3 silence
+  --d4 silence
+  --d5 silence
+  --d6 silence
+
+
 
 hush
 
