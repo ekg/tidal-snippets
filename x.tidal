@@ -2543,7 +2543,47 @@ d4 silence
 
 hush
 
+-- 10:07 23-Oct-21
 
+-- harshness
+
+setcps (117/60/4)
+
+d1 $ every 4 (# lpf "300 . 1000 2000")
+  $ stack [fast 4 $ s "808bd/2",
+            -- slow 3 $ struct "t(5,16)" $
+           sew "t(<5!3 7!2>,8)"
+            (fast 4 $ s "[~ kick]")
+            (fast 4 $ s "[~ 808mt]" # (slow 8 $ speed "1 1.01 1.02 1.03")),
+           fast 4 $ s "bd"]
+  # n 4 # lpf (rangex 300 1000 (slow 8 $ cosine))
+
+d2 $ every 16 ((# room 1).(# sz 0.97).(# gain 0.8))
+  $ every 2 (stut 2 0.5 (1/16)) $ n "<0 1 3>*8" # s "[yeah:138, linnhats]" # hpf 2000 # lpf 5000
+
+d3 
+  $ every 2 (stut "0 2" 0.5 (1/16))
+  $ stut 3 0.5 (1/2)
+  $ fast 2 $ s "~ clap" # n (slow 16 "4!9 5 6 7 4 4 5 7")
+  # amp 0.2
+
+d4 -- $ always (|+ (fast "<16 8 4 1>" (note "0 7")))
+  $ every 2 (slow 3) $ every 8 (# distort (fast 3 ("0.1 0.2 0.5 0.8")))
+  $ stut (slow 9 "5 7 8 9 11 13") 0.5 (1/16)
+  $ every 8 ((stut 2 1 (slow 3 "0.66 0.5 0.5 0.5")).(+ (note "7")))
+  $ note "'min11" # stack [s "lo:3",
+                           s "sine" # speed 0.88 # gain 0.6,
+                           s "teclado:11" # gain 0.7 # speed 0.883 # gain 0.5]
+  # amp 0.3 # lpf 1400 # hpf 500
+  -- # room (range 0.02 0.1 (slow 7 saw)) # sz (range 0.9 0.98 (slow 16 saw))
+
+d5 $ struct "t(<3 3 5 3 1 2 3 5>,8,2)" $ note "<'min!3 'min11>" + note "<c5 c5 ef5 g5>"
+  # s "flbass:6" # speed 1.95 # legato 1 # amp 0.6 # lpf 300
+
+-- d6 $ note "'min11" # s "superpiano" # velocity 0.5 # amp 1
+
+hush
+panic
 
 import Sound.Tidal.Chords
 
