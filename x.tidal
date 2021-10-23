@@ -2094,7 +2094,7 @@ d3 -- $ every 8 (stut 2 0.5 0.125)
 -- two drop
 d3 $ fast 2 $ s "[808bd:4/3, bd:7] ~" # amp 0.6
 
-d4 $ slow 4
+d4 $ every 4 (fast 2) $ slow 2
   -- $ note (stack ["g3(3,19,5)", "c4(2,17,3)", "d4(4,15,3)"])
   $ note "g3 c4 d4 g4 c4 d4 g3 g3"
   # s "sine" # speed (1/2) # release 0.25 
@@ -2505,6 +2505,45 @@ do
   --d6 silence
 
 hush
+
+-- 08:53 23-Oct-21
+
+setcps (107/60/4)
+setcps (137/60/4)
+
+d1 $ every 4 (# gain "<1 1 1 0> 0")
+  $ every 2 (chunk 8 (hurry 2))
+  $ s "kick:8 ~ 808lt:3 [<~ [yeah, sd] ~ ~> clap:4] . kick:8 <808mt:3 lt:8>@2 [sd, rs]"
+
+d2 $ every' 8 1 (struct "t(3,8)")
+  $ whenmod 8 7 (# gain 0)
+  $ every 2 (sometimes $ struct "t(5,8,7)")
+  $ every 3 (slow 2) $ always (+ (slow 16 (note "0 0 <5 -12> 7"))) $ stut 5 0.7 0.125
+  $ 0.125 ~> (sometimes (off 0.5 (+ (note "12")))
+              $ arpg $ slow 2 $ note "gs3'min7 ~ cs4'min7 ~" # s "superhammond"
+              # voice (slow 3 "3 7 5") # velocity 0.6)
+  # room 0.5 # sz 0.9 # gain 0.8
+  -- # delay 0.5 # delayt 0.666 # delayfb 0.8
+  # hpf (range 1900 400 (slow 16 sine))
+
+d3 $ struct (binaryN 16 38) $ slow 2 $ note "gs4 cs4" # s "dbass" # n 8
+
+d4 $ every 8 (jux rev)
+  $ sometimes (every 2 (stut 3 0.7 0.125))
+  $ every 3 (struct (binaryN 16 72))
+  $ struct (binaryN 8 41) $ s "tabla2" # n "0 0 2 0 0 3 4 7" # speed (fast 7 "1.07 1.06 1.08")
+  # begin (fast 7 "0 0 0.1 0.2")
+
+d1 silence
+d2 silence
+d3 silence
+d4 silence
+
+-- d2 $ s "kick ~ . kick ~" # n 8
+
+hush
+
+
 
 import Sound.Tidal.Chords
 
