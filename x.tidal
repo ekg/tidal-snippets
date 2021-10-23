@@ -2608,11 +2608,11 @@ do
     $ every 3 (struct "t(5,7)")
     $ off (3/7) (+ (note (slow 7 "0 0 0 -12")))
     $ chunk 7 (# amp 0)
-    -- $ every' 4 1 (# amp 0)
+    $ every' 4 1 (# amp 0)
     -- $ every' 4 2 (# amp 0)
     -- $ every' 4 3 (# amp 0)
     $ every 2 (rev)
-    $ every' 8 1 (+ note "7")
+    $ every' 3 1 (+ note "7")
     $ every' 4 1 (linger (3/7))
     $ struct "t(<9 4>,14,2)"
     $ stut 7 0.7 (3/7)
