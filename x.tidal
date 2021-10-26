@@ -2638,10 +2638,10 @@ do
     $ struct "t(<5 5 6 5>,7)"
     $ fast 2 $ note (scale "minor" ("<<-7 -12 -9> -9>" + "{ 0 <7 9> 2 }%7"))
     # s "superhammond" # lpf 150 # room 0.3 # sz 0.6 # gain 0.8
-  --d1 silence
-  --d2 silence
+  d1 silence
+  d2 silence
   d3 silence
-  --d4 silence
+  d4 silence
   --d5 silence
 
 --  cat [note "b4'maj7"] # 
@@ -2649,6 +2649,54 @@ do
 -- clutchIn 2 8 $ s "kick:3 kick:3(3,8) ul:7 bd ~ ul:7 bd:3"
 hush
 
+-- 11:23 26-Oct-21
+
+setcps (78/60/4)
+
+do
+  let melody = slow 2 $ note "{g4 ~ b3 b4 fs3 b4 ~ d4 d5}%22"
+  let chords = note "<'min7 'min7 ['5(3,4) 'maj(4,7)] 'maj '5 'min7>" + melody
+  d1 $ sew "t(<3 7>,11)"
+    (s "808bd:2*11" # gain 1.1)
+    (s "<yeah amencutup>*11" # n (fast 7 "8 2 8 9 3"))
+  d2 $ every 3 (# gain 0)
+    $ every 2 (stut "2 <3 5 7>" 0.7 (3/11))
+    $ struct "~ ~ 1 <1 ~ ~> ~ ~ ~ ~ 1 ~ ~"
+    $ stack [s "clap:3" # gain 0.9 # hpf (range 3000 (range 1000 10000 (slow 11 sine)) (slow 9 saw))
+            , s "cp:8" # gain 0.9 # lpf (range 3000 5000 (slow 7 saw))
+            ]
+    # room 0.01 # sz 0.87
+  d3 $ every 4 (# gain 0)
+    $ every 2 (# crush "16 16 3 16 9")
+    $ every 3 (# gain "0 1 0 1 0") $ s "808oh(<7 9 3 9>,22,2)" # n (slow 3 "0 .. 7")
+    # legato 1 # release 0.1 # lpf (range 300 1000 (slow 7 saw))
+    # room 0.1 # sz 0.7
+  d4 $ struct "t(<7 7 9 5>,11,<0 1>)"
+    $ every 3 (rev) $ slow 8
+    $ fast 2
+    $ melody
+    -- $ note "{g4 ~ b3 b4 fs3 b4 ~ d4 d5}%22"
+    # stack [s "gtr" # lpf 200 # legato 1,
+              s "superhammond" # lpf 300]
+  d5  -- $ every 4 (# gain 0)
+    $ every 4 (stut 3 0.7 (3/11))
+    $ every 3 (rev)
+    $ every 8 (hurry 2)
+    $ slow 4
+    $ chords
+    -- $ note "<'min7 'min7 ['5(3,4) 'maj(4,7)] 'maj '5 'min7>"
+    -- + (slow 2 $ note "{g4 ~ b3 ~ fs3 b4 ~ d4 ~}%22")
+    # stack [ s "superpiano" # velocity 0.7,
+              s "piano" # gain 0.7 ]
+    # lpf (cat [ 2000, 1000, 800, 400 ])
+    # room 0.5 # sz 0.9
+  --d1 silence
+  --d2 silence
+  --d3 silence
+  --d4 silence
+  --d5 silence
+
+hush
 
 import Sound.Tidal.Chords
 
