@@ -2463,13 +2463,16 @@ d2 $ s "[tech:6, tech:5, 808bd:4](<4!3 3 4!3 5>,7)"
 
 hush
 
-setcps (103/60/4)
-
 do
+  setcps (103/60/4)
   let space = every' 8 1 (# amp 0)
   let melodish = note (cat ["d'7 d'min c'min [g, b]",
+                            "d'7 d'min c'min [g, b]",
                             "g'maj7 g'7 c'min [e'min, b'maj]",
-                            "g'maj c'6"])
+                             "g'maj7 g'7 c'min [e'min, b'maj]",
+                            "g'maj c'6",
+                             "g'maj c'6"
+                           ])
   d1 $ space $ weave 3 (lpf (range 100 (range 800 900 (slow 7 cosine)) sine))
     [s "bd:3(4,8)",
      s "[world:0, reverbkick](4,8)"]
@@ -2587,9 +2590,8 @@ panic
 
 -- 11:06 23-Oct-21
 
-setcps (98/60/4)
-
 do
+  setcps (98/60/4)
   let somequiet = every 7 (# amp 0)
   d1 -- $ every' 5 1 (# amp 0)
     $ somequiet
@@ -2638,10 +2640,10 @@ do
     $ struct "t(<5 5 6 5>,7)"
     $ fast 2 $ note (scale "minor" ("<<-7 -12 -9> -9>" + "{ 0 <7 9> 2 }%7"))
     # s "superhammond" # lpf 150 # room 0.3 # sz 0.6 # gain 0.8
-  d1 silence
-  d2 silence
-  d3 silence
-  d4 silence
+  --d1 silence
+  --d2 silence
+  d3 silence -- ow
+  --d4 silence
   --d5 silence
 
 --  cat [note "b4'maj7"] # 
@@ -2651,9 +2653,8 @@ hush
 
 -- 11:23 26-Oct-21
 
-setcps (78/60/4)
-
 do
+  setcps (78/60/4)
   let melody = slow 2 $ note "{g4 ~ b3 b4 fs3 b4 ~ d4 d5}%22"
   let chords = note "<'min7 'min7 ['5(3,4) 'maj(4,7)] 'maj '5 'min7>" + melody
   d1 $ sew "t(<3 7>,11)"
@@ -2669,16 +2670,18 @@ do
   d3 $ every 4 (# gain 0)
     $ every 2 (# crush "16 16 3 16 9")
     $ every 3 (# gain "0 1 0 1 0") $ s "808oh(<7 9 3 9>,22,2)" # n (slow 3 "0 .. 7")
-    # legato 1 # release 0.1 # lpf (range 300 1000 (slow 7 saw))
+    # legato 1 # release 0.1 # lpf (range 300 2000 (slow 7 saw))
     # room 0.1 # sz 0.7
-  d4 $ struct "t(<7 7 9 5>,11,<0 1>)"
-    $ every 3 (rev) $ slow 8
-    $ fast 2
-    $ melody
-    -- $ note "{g4 ~ b3 b4 fs3 b4 ~ d4 d5}%22"
-    # stack [s "gtr" # lpf 200 # legato 1,
-              s "superhammond" # lpf 300]
-  d5  -- $ every 4 (# gain 0)
+  d4 $ struct "t(<3 7 4 5 5 7 9>,11/2,<0!7 4>)"
+    $ every 3 (rev)
+    $ every 8 (slow 2)
+    -- $ every 5 (# distort (fast 7 "0 0 0.5 0"))
+    $ slow 4
+    $ n "-12" + melody
+    -- $ note "{g3 ~ b3 b3 fs3 b3 ~ d3 d3}%22"
+    # stack [s "gtr" # lpf 200 # legato 1.5 # gain 0.8,
+              s "superhammond" # lpf 300 # legato 1.5]
+  d5 -- $ every 4 (# gain 0)
     $ every 4 (stut 3 0.7 (3/11))
     $ every 3 (rev)
     $ every 8 (hurry 2)
@@ -2688,7 +2691,7 @@ do
     -- + (slow 2 $ note "{g4 ~ b3 ~ fs3 b4 ~ d4 ~}%22")
     # stack [ s "superpiano" # velocity 0.7,
               s "piano" # gain 0.7 ]
-    # lpf (cat [ 2000, 1000, 800, 400 ])
+    # lpf (cat [ 1200, 1000, 800, 400 ])
     # room 0.5 # sz 0.9
   --d1 silence
   --d2 silence
@@ -2697,6 +2700,34 @@ do
   --d5 silence
 
 hush
+
+-- 11:31 28-Oct-21
+
+do
+  setcps (90/60/4)
+  -- enlongen this
+  let melody = note (cat ["e/2 ~ g/2 b/3"
+                          ,"b/2 ~ d/2 g/3"
+                          ,"e/3 ~ g/2 [e b]/4"
+                          ,"~ ~ d/2 [e b g]/5"
+                          ])
+  let chords = note "'5 '4 '7 '5 '3"
+  d1 $ struct "t(7,15)" $ chords +| melody # s "uku" # n (slow 8 "0 0 0 0 2 3 4")
+    -- # delay 0.9 # delayfb 0.8 # delayt (7/15)
+    # lpf (range 300 (slow 8 "1000!8 5000") (fast 2 sine))
+  d2 -- $ every' 8 4 ((hurry (7/15)).(rev))
+    -- $ struct "t(9,15)"
+    $ every 2 (# gain "1 1 0")
+    $ slice (slow 8 "8! [7 5 15]") "0 0 ~ . 7 6 1 . <7 8 7 1> ~ . 0 1 2 . ~ 1 <7 6 5 4 3 2 1 0>" $ s "break:8" # gain 1.3
+  d3 -- $ rotR (2/15)
+    $ struct "t(9,15)"
+    $ stut 3 0.85 (3/15) $ note (-12) + melody
+    # stack [s "superhammond" # legato 2 # lpf 300 # gain 0.8,
+             s "flbass" # n 8 # legato 2 # lpf 800 # gain 0.8,
+             s "supermandolin" # legato 1 # lpf 1700 # gain 1.5 # (arpg chords)]
+  d4 $ every 2 (# gain "1 1 1 0")
+    -- $ every 8 (# gain 0)
+    $ s "kick:8(<6!7 9>,15)" # speed 0.8
 
 import Sound.Tidal.Chords
 
