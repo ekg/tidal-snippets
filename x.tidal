@@ -2273,7 +2273,7 @@ setcps (90/60/4)
 
 do
   let adj = always (note (slow 13 "2 7 9") + )
-  let swing = always id --(# nudge (fast 6.5 $ "0 <0.02 0.03>"))
+  let swing = (# nudge (fast 6.5 $ "0 <0.02 0.03>"))
   let vary = every 3 (note (slow 4 "3 12 5") + )
   let break = every 7 (# amp 0)
   d1
@@ -2552,6 +2552,8 @@ hush
 
 setcps (117/60/4)
 
+setcps (98/60/4) -- that becomes tasty at 98bpm
+
 d1 $ every 4 (# lpf "300 . 1000 2000")
   $ stack [fast 4 $ s "808bd/2",
             -- slow 3 $ struct "t(5,16)" $
@@ -2704,9 +2706,9 @@ hush
 -- 11:31 28-Oct-21
 
 do
-  setcps (90/60/4)
+  setcps (97/60/4)
   -- enlongen this
-  let melody = note (cat ["e/2 ~ g/2 b/3"
+  let melody = slow 2 $ note (cat ["e/2 ~ g/2 b/3"
                           ,"b/2 ~ d/2 g/3"
                           ,"e/3 ~ g/2 [e b]/4"
                           ,"~ ~ d/2 [e b g]/5"
@@ -2728,6 +2730,62 @@ do
   d4 $ every 2 (# gain "1 1 1 0")
     -- $ every 8 (# gain 0)
     $ s "kick:8(<6!7 9>,15)" # speed 0.8
+
+hush
+
+-- loopmaster producer stuff from ancient times
+
+-- 30-Oct-21
+
+do
+  setcps (127/60/4)
+  d1 $ slice 8 "7 6 5 ~ 3 7 ~ 4" $ s "lpmr" # n "302"
+  d2 $ note (slow 16 "0 7 0 -12")
+    + (slow 4 $ s "lpmr" # n "544")
+    # room 0.7 # sz 0.95 # legato 2
+    # begin 0.5
+  d3 $ struct "t(5,8,<[0 2 3] 2 2 3>)"
+    $ note (slow 16 "0 3 0 7")
+    + s "lpmr" # n 668 # legato 1
+    # lpf 300 # sustain 0.4 # decay 0.5 # release 0.9
+  d4 $ note "~ ~ 0/2 ~" # s "lpmr" # n 286
+  d5 $ struct "t(4,8)" $ s "lpmr" # n 611
+  --d1 silence
+  --d2 silence
+  --d3 silence
+  --d4 silence
+  --d5 silence
+
+do
+  setcps (127/60/4)
+  d1 $ struct "t(4,8)" $ s "lpmr" # n 609
+  d2 $ slice 8 "<7 7 2> 6 5 ~ 3 7 ~ 4" $ struct "t(2,8,4)"
+    $ s "lpmr" # n (slow 4 "198 326") # gain 1.3
+    # delay 0.5 # delayt (1/4)
+  d3 $ n "<410 ~ ~> <<411 412 413> ~>" # s "lpmr"
+    # note "5" # lpf 1000 # distort 0.3 # room 0.05 # sz 0.8
+  d4 $ fast 2 $ n "~ 196" # s "lpmr"
+  d5 $ loopAt 2 -- $ sew "t(7,16)" (n "202") (n "201") # s "lpmr" -- todo use sew
+    $ n "202" # s "lpmr"
+  --d1 silence
+  --d2 silence
+  --d3 silence
+  --d4 silence
+  --d5 silence
+
+hush
+
+do
+  let bank = s "lpmr"
+  setcps (120/60/4)
+    -- $ fast 2 $ note (scale "minor" ("<<-7 -12 -9> -9>" + "{ 0 <7 9> 2 }%7"))
+  d1
+    -- $ note "0 1 2 3 4"
+    $ slow 4 $ note (scale "minor" "0 3 0 <3 4>")
+    # n "188" # bank # legato 1
+
+-- d2 $ note "e'min" # s ""
+
 
 import Sound.Tidal.Chords
 
