@@ -2756,6 +2756,8 @@ do
   --d4 silence
   --d5 silence
 
+hush
+
 do
   setcps (127/60/4)
   d1 $ struct "t(4,8)" $ s "lpmr" # n 609
@@ -2781,11 +2783,63 @@ do
     -- $ fast 2 $ note (scale "minor" ("<<-7 -12 -9> -9>" + "{ 0 <7 9> 2 }%7"))
   d1
     -- $ note "0 1 2 3 4"
-    $ slow 4 $ note (scale "minor" "0 3 0 <3 4>")
-    # n "188" # bank # legato 1
+    $ slow 8 $ note "'min7" + note (scale "minor" "4(3,8) 3(5,8,2) 0(5,16,3) -1(7,16,4)")
+    # n "1009" # bank # legato 1 # lpf 300 # gain 0.8
+  d2 $ n "381(7,16,1)" # bank
+  d3 $ loopAt 2 $ n "467(4,16,0)" # bank # legato "<3!7 4>"
 
 -- d2 $ note "e'min" # s ""
 
+-- enter the reggae
+
+-- 10:14 31-Oct-21
+-- red eye mizzin
+
+do
+  let rbank = s "reggae"
+  let lbank = s "lpmr"
+  setcps (90/60/4)
+  --d1 $ loopAt 2 $ n "0" # rbank # legato 1 # lpf (range 100 500 (slow 8 sine)) # gain 1.2
+  d1 $ slice 16 (slow 2 "0 .. 3 <0 5 5 5 3 7 15 20> .. 2")
+    $ loopAt 2 $ n "3" # rbank # legato 1 # hpf (range 100 500 (slow 8 sine)) # gain 0.87
+  --d2 $ loopAt 2 $ rbank # legato 1 # n "<91 99>" 
+  d2 $ every 8 (fast 2) $ slice 8 "<7 3 2> 6 5 ~ <3 1> <7 0 1> ~ <4 2>" $ loopAt 2 $ n "<91 99>"
+    # rbank # legato 1 # hpf (range 0 500 (slow 8 cosine))
+  d3 $ loopAt 4
+    $ n "18" # lbank # legato 1
+  d4 $ loopAt 2
+    $ n "11 9 10 7" # lbank # legato 1
+  d5 $ every 8 (fast 2) $ every 4 (fast 2) $ s "kick:8*2" # speed 0.95
+  --d1 silence
+  --d2 silence
+  --d3 silence
+  --d4 silence
+  --d5 silence
+
+hush
+panic
+
+-- intense...
+
+do 
+  let rbank = s "reggae"
+  let lbank = s "lpmr"
+  let space = every 8 (# gain 0)
+  setcps (120/60/4)
+  d1 $ space
+    $ every' 4 2 (stut 3 0.7 (3/8))
+    $ chunk 4 (hurry 2)
+    $ struct "t(5,8)" $ slow 8 $ note (scale "major" "0(3,8) 2(3,8) 0(2,8,2) 1(5,8)")
+    # n "164" # lbank # legato 1 # speed 1 # lpf 2000
+  d2 $ space
+    $ every' 8 1 (stut 4 0.5 (1/8))
+    $ struct "t(3,8)" $ note (scale "major" (slow 8 "0 0 4 3")) # n "297" # lbank
+    # legato 1 # lpf 1000
+  d3 $ s "808bd:3*4" # gain 1.2
+  d4 $ every 4 (+ n 4) $ s "808oh(9,16,14)" -- # hpf 4000
+  d5 $ every' 4 1 (# gain 1) $ loopAt 2 $ n "131" # rbank # legato 1 # gain 0
+
+hush
 
 import Sound.Tidal.Chords
 
