@@ -2953,10 +2953,42 @@ do
   d3 $ every 8 (# gain 0)
     $ every 4 (rev) $ slow 2 $ slice 8 "0 3 1 2 4 6 5 7" $ loopAt 1 $ n 102 # lbank # legato 1
   d4 $ every 8 (# gain 0) $ every 4 (stut 3 0.5 (1/8))
-    $ fast 4 $ note (slow 16 "0 2 0 -5") + note "~ 'min" # s "superpiano" # velocity 0.5 # gain 1
+    $ fast 4 $ note (slow 16 "0 2 0 <-5 7>") + note "~ 'min" # s "superpiano" # velocity 0.5 # gain 1
     # lpf 1000 # room 0.5 # sz 0.93
 
 hush
+
+--d2 $ struct "t(3,8)" $ n "1193" # s "lpmr"
+
+-- 10:01 06-Nov-21
+
+do
+  let rbank = s "reggae"
+  setcps (110/60/4)
+  d1 $ every 8 (slice 8 "7 4 3 ~ [2 2] 0 0") $ loopAt 2 $ n 20 # rbank
+  d2 $ every 8 (# gain 1) -- $ slice 5 "3 2 1 ~ 4"
+    $ loopAt 2 $ n 138 # rbank # gain 0 # legato 1
+  d3 $ every 8 (# gain "1 0") $ every 4 (fast 2) $ struct "t(3,8,0)"
+    $ stack [n 3 # s "flbass"] --  n 2 # s "sine" # speed (range 1.5 1.8 (slow 16 sine))]
+    # legato 1 # lpf 100 # gain 0.9
+  --d4 $ slow 2 $ n "0 0 2 2 4 4 7 <~ ~ ~ 12>" # s "superpiano" # lpf 300
+  --d1 silence
+  --d2 silence
+  --d3 silence
+  --d4 silence
+
+d1 $ stut 2 0.5 (1/8) $ slow 2 $ n "0 0 2 2 4 4 7 <~ ~ ~ 12>" # s "superpiano" # lpf 300
+
+do
+  let vbank = "lpviz"
+  setcps (110/60/4)
+  d1 $ loopAt 4 $ n 30 # vbank # hpf 800
+  d2 $ loopAt 4 $ n 291 # vbank
+  d3 $ s "bd(4,7)"
+  d4 $ struct "t(5,7,2)" $ s "808lt:3"
+
+hush
+
 
 import Sound.Tidal.Chords
 
