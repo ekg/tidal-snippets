@@ -2786,7 +2786,8 @@ do
     $ slow 8 $ note "'min7" + note (scale "minor" "4(3,8) 3(5,8,2) 0(5,16,3) -1(7,16,4)")
     # n "1009" # bank # legato 1 # lpf 300 # gain 0.8
   d2 $ n "381(7,16,1)" # bank
-  d3 $ loopAt 2 $ n "467(4,16,0)" # bank # legato "<3!7 4>"
+  d3 -- $ every 2 (rev)
+    $ loopAt 2 $ n "467(4,16,0)" # bank # legato "<3!7 4>"
   --d1 silence
   --d2 silence
   --d3 silence
@@ -2955,6 +2956,10 @@ do
   d4 $ every 8 (# gain 0) $ every 4 (stut 3 0.5 (1/8))
     $ fast 4 $ note (slow 16 "0 2 0 <-5 7>") + note "~ 'min" # s "superpiano" # velocity 0.5 # gain 1
     # lpf 1000 # room 0.5 # sz 0.93
+  --d1 silence
+  --d2 silence
+  --d3 silence
+  --d4 silence
 
 hush
 
