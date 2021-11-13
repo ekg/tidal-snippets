@@ -2992,6 +2992,20 @@ do
   d3 $ s "bd(4,7)"
   d4 $ struct "t(5,7,2)" $ s "808lt:3"
 
+
+-- 09:42 13-Nov-21
+
+do
+  let vbank = "lpviz"
+  setcps (90/60/4)
+  d1 $ every 16 ((# room 0.8 ).(# sz 0.95))
+    $ struct "t(4,9)" $ n 382 # vbank # legato 1
+  d2 $ every 3 ((# room 0.8 ).(# sz 0.95).(# gain 0.7))
+    $ struct (slow 4 "t(4,36,<0 1>)") $ n 10 # vbank # legato 1
+  d3 $ struct "t(3,9)" $ every 3 (rev) $ slice 8 "0 .. 7" $ n 476 # vbank # legato 1
+  d4 $ struct "t(<11 7 13 11>,18,3)" $ s "808oh" # gain 1 # vowel "e a e o e u"
+  d5 $ struct "t(<5!5 7>,9)" $ stack [n 480 # vbank, s "bd"]
+
 hush
 
 
