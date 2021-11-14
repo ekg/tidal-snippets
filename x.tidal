@@ -3008,6 +3008,64 @@ do
 
 hush
 
+-- 15:30 13-Nov-21
+
+do
+  let lbank = "lpmr"
+  setcps (120/60/4)
+  d1 $ rotR (1/8) $ note (scale "zhi" "0 <-2 -2 -3 -1> 0 1")
+    # n 381 # lbank # legato 1
+  d2 $ every 2 rev $ striate 8 $ n 402 # lbank # legato 1 # speed 0.5
+  d3 $ s "bd:3(<4!7 3>,8)" # gain 1.1
+  d4 $ every 4 (# gain 0) $ fast 2 $ s "~ realclaps:3"
+  d5 $ fast 8 $ every 16 (fast 4) $ s "superhat"
+  d6 $ every 4 (rotR (1/8))
+    $ slow 2 $ note (scale "zhi" "0 <-2 -2 -3 -1> 0 1") # s "flbass:8" # legato 1 # gain 1.1
+  d7 $ slow 4 $ note (slow 8 "b4'min7 e4'min7 a4'min7 b4'min7")
+    # s "superpiano" # delay 0.5 # delayfb 0.9 # delayt (3/4) # lpf 500
+  --d1 silence
+  --d2 silence
+  --d3 silence
+  --d4 silence  
+  --d5 silence
+  --d6 silence
+  --d7 silence
+
+hush
+
+do
+  let lbank = "lpmr"
+  let chords = note (slow 8 "b4'min7 e4'min7 a4'min7 b4'min7")
+  setcps (120/60/4)
+  d1 $ slow 4 $ chords
+    # s "superpiano" # delay 0.5 # delayfb 0.9 # delayt (3/4) # lpf 500
+
+
+hush
+
+-- 09:23 14-Nov-21
+
+do
+  let lbank = "lpmr"
+  let roots = note (slow 8 "a a bf c d f a bf")
+  let chords = note (slow 8 "a'min a'min7 bf'maj7 c'sus2 d'min7 f'maj7 a'min7 bf'maj7")
+  setcps (112/60/4)
+  d1 $ off (3/8) ((# octer (segment 16 $ range 0 (-0.5) (slow 16 sine))).(# crush 3))
+    $ stut 3 0.5 (1/8) $ arp "up" $ slow 4 $ chords
+    # s "superpiano" # delay 0.5 # delayfb 0.9 # delayt (3/4) # lpf 500
+  d2 $ chords # s "superhoover" # lpf 500 # gain 0.5 # hpf 200 # room 0.7 # sz 0.8
+  d3 $ roots # s "flbass"
+  d4  --- $ struct "t(5,8)"
+    $ stack [slice 8 "0(3,5) 3 2 [3 7] 7(2,3)" $ n 157 # lbank # legato 1 # speed 0.5,
+              loopAt 2 $ n 157 # lbank # legato 1 # speed 0.5]
+  d5 $ s "bd*4"
+  d6 $ struct "t(<11 15 11 13>,16,1)" $ n 452 # lbank # gain (range 0.2 0.7 (slow 16 sine))
+  --d1 silence
+  --d2 silence
+  --d3 silence
+  --d4 silence
+  --d5 silence
+  --d6 silence
 
 import Sound.Tidal.Chords
 
