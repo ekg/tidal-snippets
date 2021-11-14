@@ -3067,6 +3067,8 @@ do
   --d5 silence
   --d6 silence
 
+hush
+
 import Sound.Tidal.Chords
 
 chordList
