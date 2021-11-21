@@ -3092,6 +3092,40 @@ do
 
 hush
 
+-- 20:08 21-Nov-21
+-- lilo & stitch 2 (in six)
+
+do
+  setcps (132/60/5)
+  let lbank = "lpmr"
+  d1 $ s "bd:3(4,6)"
+  d2 $ off (3/5) (# speed "-1")
+    $ slow 6 $ note (scale "melodicMinor" "0 3 <0 -5> 2 4 0") # n 138 # lbank # legato 3
+    # lpf 200 # room 0.3 # sz 0.95
+  d3 $ loopAt 2 $ n 137 # lbank
+    -- # lpfbus 3 (segment 128 (range 300 500 (slow 8 sine)))
+    # lpfbus 3 (fast 2 "0 1000 0 2000 0 3000")
+  d4 $ every 2 (slow 2) $ slice 12 "0 15 <1 13> 14 [5 2] 13" $ n 137 # lbank # hpf 3000
+    # gain "0 1 0 1 1 0"
+  d5 $ slow 4
+    $ every 8 (fast 2)
+    $ note (scale "melodicMinor" "1 2 <3 ~> <~ 4 ~> ~ 7")
+    # s "flbass" # n (slow 4 "0 0 3 1")
+    # legato 1
+  d6 $ s "808oh(<5 5 3 5 5 3 7>,12,2)" # n (slow 8 "0 0 0 3 0 1 3") # gain 0.8
+  d7 $ every 8 ((# room 0.9).(# sz 0.8))
+    $ every 4 (# speed "1 -1")
+    $ s "~ ~ <1 0 [1 4 7] 3> ~ ~ 1" # s "realclaps" # gain 0.8 # room 0 # sz 0
+  d1 silence
+  --d2 silence
+  d3 silence
+  d4 silence
+  d5 silence
+  d6 silence
+  d7 silence
+
+hush
+
 import Sound.Tidal.Chords
 
 chordList
