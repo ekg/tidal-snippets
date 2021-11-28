@@ -3177,6 +3177,7 @@ do
 hush
 
 -- 12:32 27-Nov-21
+-- give me dub
 
 do
   setcps (135/60/4)
@@ -3188,13 +3189,13 @@ do
   d5 $ s "bd ~ bd ~"
   d6 $ s "~ ~ sd:3 ~" # room 0.9 # sz 0.5
   d7 $ s "hh*8"
-  --d1 silence
-  --d2 silence
-  --d3 silence
+  d1 silence
+  d2 silence
+  d3 silence
   --d4 silence
-  --d5 silence
-  --d6 silence
-  --d7 silence
+  d5 silence
+  d6 silence
+  d7 silence
 
 hush
 
