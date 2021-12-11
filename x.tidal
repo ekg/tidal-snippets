@@ -524,8 +524,9 @@ d1 $ sound "bd [~ sd] bd sd" # squiz 2
 d1 $ every 3 (rev) $ every 3 (chop 8) $
   sound "bd [~ sd] bd sd" # squiz 2
 
-d1 $ every 3 (rev . chop 8) $
-  sound "bd [~ sd] bd sd" # squiz 2
+d1 $ every 4 (rev . chop 16)
+  $ every 3 (rev . chop 8) $
+  sound "bd [~ sd] bd sd" # squiz 1
 
 d1 $ every 3 (rev . chop 8 . fast 2) $
   sound "bd [~ sd] bd sd" # squiz 2
@@ -533,7 +534,12 @@ d1 $ every 3 (rev . chop 8 . fast 2) $
 d1 $ every 3 ((# room 0.3) . rev . chop 8 . fast 2) $
   sound "bd [~ sd] bd sd" # squiz 2
 
-d1 $ n "c e" # sound "supermandolin"
+d3 $ every 8 (fast 4) $ slow 8
+  $ note "0 0 <3 4> <0 0 1>" + note "'min9"
+  # stack [sound "supermandolin",
+           stut 3 0.25 0.25
+            $ s "superpiano" # lpf 400 # velocity 0.8]
+  # delay 0.8 # delayfb 0.5 # delayt "0.5 <0.5 0.25>"
 
 d1 $ off 0.25 (# crush 4) $ n "c e" # sound "supermandolin"
 
