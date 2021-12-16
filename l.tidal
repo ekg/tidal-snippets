@@ -102,6 +102,79 @@ do
   d2 $ quiet $ every' 4 3 (fast "2 4 8") $ fast 4 $ s "~ dr"
   d3 $ quiet $ every 3 (stut 4 0.5 0.25) $ every' 4 3 (# speed "1 -1 1 -1") $ fast 4 $ s "~ latibro" # n (slow 4 "0 4") # speed 0.25 # legato 2 # room 0.9 # sz 0.3
   d4 $ every' 4 3 (rev) $ slice 16 "0 .. 15" $ loopAt 2 $ s "break"
+  d5 $ every 8 (fast 2) $ s "bd(3,8)" # gain 2
+
+-- 12:04 12-Dec-21
+
+do
+  setcps (110/60/4)
+  let build x = cat (map (note) x)
+  let a = build ["g'maj7 . ~ a'maj b'min", "fs'min7"]
+  let b = build ["g'maj", "fs'min"]
+  let c = build ["g'maj", "a'min7"]
+  let d = build ["~ . g'maj b'min fs'min"]
+  let e = build ["g'maj fs'min"]
+  let f = build ["g'maj b'min fs'min"]
+  let q = "~"
+  let r = build ["~", "~"]
+  let z = always (# nudge (fast 8 "<0 -0.02> 0.05")) -- id -- qtrigger 1
+  --let chords = cat [a, b, c, q, b, c, q, d, q, d, b, q, c, b, c, q, f, q, q, q, q]
+  let chords = cat [a, r,
+                    b, r,
+                    c, r,
+                    b, r,
+                    c, r,
+                    d, q,
+                    d, f]
+  --resetCycles
+  let m = silence
+  d1 $ z $ every 4 (fast 2)
+    $ chords # s "superpiano"
+    # room 0.8 # sz 0.9 # gain 0.8 # velocity 0.8
+  d2 $ z $ every 4 (stut 4 0.9 (1/8))
+    $ struct "t(3,8)" $ (arp "up" (note "-12 0 <5 7 4>" + chords))
+    # s "flbass" # n "[0, 3, 5]" # legato 1 # speed 1.005
+  d3 $ z $ stut 3 0.7 (3/8)
+    $ chords # s "gtr" # legato 1 # room 0.3 # sz 0.95 # gain 0.84
+  d4 $ z $ every 8 (# gain 0) $ s "808bd:3*4" # gain 1.3
+  d5 $ z $ every 8 (fast 2) $ s "[~ 808oh]*4" # n (slow 8 "0!5 3")
+    # lpf (range 1000 10000 (slow 8 $ saw))
+  d6 $ z
+    $ every 3 (# delay 0.5)
+    $ every 4 (# delayt (3/8))
+    $ every 16 ((fast 2).(degrade))
+    $ every 8 (fast 4)
+    $ struct "~ t ~ t" $ stack [s "realclaps" # n 4, s "cp" # n 3]
+    # delay 0
+  --d1 m
+  --d2 m
+  --d3 m
+  --d4 m
+  --d5 m
+  --d6 m
+
+-- 13:15 12-Dec-21
 
 
 hush
+
+
+
+--15:16 16-Dec-21
+
+do
+  setcps (132/60/4)
+  let l x = s "lpmr" # n x
+  d1 $ struct "t(3,8)" $ l 134
+  d2 $ stut "0 <0 0 3 2> 0" 0.9 (1/32) $ struct "t(11,16,2)" $ l "<381 382 81>"
+  d3 $ struct "t(3,8,2)" $ s "flbass:4"
+  d4 $ stut "0 <0 0 3 7 0> 0" 0.7 (3/16) $ note "'min7" + note (scale "iraq" (slow 8 "0 1 2 3")) # s "superpiano" # velocity 0.75
+
+hush
+
+import Sound.Tidal.Chords
+
+chordList
+scaleList
+
+sock <- carabiner tidal 4 (0.29)
