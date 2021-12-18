@@ -172,6 +172,42 @@ do
 
 hush
 
+-- 15:40 18-Dec-21
+do
+  setcps (137/60/4)
+  let l x = s "lpmr" # n x
+  let r x = s "reggae" # n x  
+  d1 $ every 16 (+ n "2 3 4")
+    $ every 8 (+ n 1)
+    $ stutWith (fast 7 "3 2 3") (3/8) (# crush (slow 3 "4 8 2 9 3")) $ loopAt "0.25 0.5" $ l 390 # gain 0.94
+  d2 $ every 8 (# speed (slow 3 "2 0.5 2"))
+    $ every 4 (jux rev) $ chop 8 $ loopAt 2 $ r 97 # gain 1.2
+  d3 $ s "bd(5,8)" # gain "1.2 1 1.1 0.3"
+  d4 $ s "~ cp ~ cp"
+  d5 $ every 8 (# room 0.8)
+    $ s "hc(<11 12 11 13>,16,<1 2>)" # n 0 # gain (range 0.5 0.8 (slow 16 saw))
+
+hush
+
+do
+  setcps (120/60/4)
+  let l x = s "lpmr" # n x
+  let r x = s "reggae" # n x  
+  d1 $ every 4 (# speed "1 -1 -0.5") $ loopAt 2 $ l 494
+  d2 $ slow (slow 8 "2 <3 -2> 2 1") $ striate 3 $ loopAt 1 $ r 38
+  d3 $ s "808bd(<3 3 4 5>,8)" # n "3 2 8"
+  d4 $ stack [n "0(4,4)",
+              n "~ 1 ~ <1 1 1 4>"  -- "<1 2 3 4>(2,4,2)"
+             ] # s "drum"
+  d5 $ every 7 (# gain 0) $ every 4 ( striate 3) $ r 133 # cut (slow 4 "1 1 1 2") # lpf (range 300 10000 (slow 16 sine))
+
+-- 17:33 18-Dec-21
+do
+  setcps (79/60/4)
+  d1 $ struct "t ~ t ~" $ s "bd"
+  d2 $ struct "~ t ~ t ~ t" $ s "808mt"
+  d3 $ striate 4 $ s "fm:8" # legato 1
+         
 import Sound.Tidal.Chords
 
 chordList
