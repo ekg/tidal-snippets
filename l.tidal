@@ -189,6 +189,7 @@ do
 
 hush
 
+-- uuwanoumano
 do
   setcps (120/60/4)
   let l x = s "lpmr" # n x
@@ -200,6 +201,11 @@ do
               n "~ 1 ~ <1 1 1 4>"  -- "<1 2 3 4>(2,4,2)"
              ] # s "drum"
   d5 $ every 7 (# gain 0) $ every 4 ( striate 3) $ r 133 # cut (slow 4 "1 1 1 2") # lpf (range 300 10000 (slow 16 sine))
+  d1 silence
+  d2 silence
+  d3 silence
+  d4 silence
+  d5 silence
 
 -- 17:33 18-Dec-21
 do
@@ -207,6 +213,42 @@ do
   d1 $ struct "t ~ t ~" $ s "bd"
   d2 $ struct "~ t ~ t ~ t" $ s "808mt"
   d3 $ striate 4 $ s "fm:8" # legato 1
+
+hush
+
+do
+  setcps (90/60/4)
+  d1 $ every 4 (# speed "-1") 
+    $ sew "t(<7 9 5 9>,16)" (s "bd(3,8)") (s "bev(7,17,3)") # n (fast 3 "0 .. 3") # cut 1
+  d2 $ struct "t(3,8,2)" $ s "flbass" # legato 2 # stack [n 3, n "0 1 2"] # lpf 300 # gain 0.9
+  d3 $ every 4 ((fast 2).(+ n "1 2 3 4"))
+    $ struct "t(5,8)" $ s "drum" # n 0
+
+hush
+
+-- 23:01 19-Dec-21
+do
+  setcps (90/60/4)
+  let l x = s "lpmr" # n x
+  d1 $ every 4 (rev)
+    $ every 8 (+ n "3 2 1")
+    $ slice 16 "0 .. 15" $ loopAt 4 $ l 578 # cut 1 
+  d2 $ every 4 (stut 3 0.5 (3/8))
+    $ note "<'min11!3 'maj9 'min11!2 'maj7 'maj9>" + note (slow 8 "a4 g4 b4 e4")  # s "superpiano"
+    # velocity 0.8 # gain 1.1
+  d3 $ every 4 (stut 3 0.5 (3/16)) $ struct (fast 4 "~ t") $ s "bass"
+  d4 $ struct "t(<1 2 3>,<4 5 9>)"
+    $ l 475 # legato 1 # speed "-1" # delay 0.5 # delayfb 0.9 # delayt (3/8)
+  d5 $ struct "t t t <t!3 ~ t!3 [t t t t]>" $  stack [l 617, l 619 # lpf 300] # gain 1.1
+  d6 $ every 4 (fast 4) $ struct "t(2,4,1)" $ l 197
+  --d1 silence
+  d2 silence
+  d3 silence
+  d4 silence
+  --d5 silence
+  --d6 silence
+
+hush
          
 import Sound.Tidal.Chords
 
