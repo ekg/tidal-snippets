@@ -242,14 +242,51 @@ do
   d5 $ struct "t t t <t!3 ~ t!3 [t t t t]>" $  stack [l 617, l 619 # lpf 300] # gain 1.1
   d6 $ every 4 (fast 4) $ struct "t(2,4,1)" $ l 197
   --d1 silence
-  d2 silence
+  --d2 silence
   d3 silence
   d4 silence
   --d5 silence
   --d6 silence
 
 hush
-         
+
+-- 10:14 20-Dec-21
+
+do
+  setcps (120/60/4)
+  d1 $ sew "t(5,8)"
+    (n "0 .. 8" # s "amencutup")
+    (segment (slow 5 "2 7 4") $ s "breaks125"
+     # n "<3 4 9 2>" # legato 1)
+    # lpfbus 1 "300 400 500 10000"
+  d2 $ n "0" # s "made"
+  d3 $ every 4 (+ note "<-5 4 3>") $ slow 2 $ s "made" # n 3
+  d4 $ slow 3 $ note "'min" + note "c4 f3" # s "uku" 
+
+hush
+
+
+-- 13:43 20-Dec-21
+-- phone
+
+do
+  setcps (130/60/4)
+  let melody = slow 4 $ note "g d a <d [g b] a [a b]>"
+  d1 $ n "0 1 0 <3 3 ~ 3(3,8)>" # s "808bd" # gain 1.2
+  d2 $ every 4 (fast "1 2") $ n " ~ 3 ~ 4" # s "realclaps"
+  d3 $ every 1 (stut 4 0.9 (3/16))
+    $ struct "t(3,8)" $ note "-12" + melody
+    # s "supervibe" # hpf 1000 
+    # velocity 0.7 # room 0.7
+  d4 $ struct "t(4,8,1)" $ melody
+    # s "flbass" # n 4 # legato 1
+  d5 $ every 8 (# gain 1) $ loopAt 2 $ s "fm" # speed "-0.8" # legato 1
+    # gain 0
+  d6 $ slice 8 "<0 1 2> 3 2 <5!3 [1 2 3]> 4 3 7 6"
+    $ loopAt 1 $ s "breaks125" # n "<3 4 7 5>" # legato 1 # hpf 500
+
+  
+
 import Sound.Tidal.Chords
 
 chordList
