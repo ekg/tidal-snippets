@@ -262,6 +262,7 @@ do
   d2 $ n "0" # s "made"
   d3 $ every 4 (+ note "<-5 4 3>") $ slow 2 $ s "made" # n 3
   d4 $ slow 3 $ note "'min" + note "c4 f3" # s "uku" 
+  d5 $ struct "t(<2 4 3 4>,8)" $ s "kick" # n 10
 
 hush
 
@@ -270,13 +271,13 @@ hush
 -- phone
 
 do
-  setcps (130/60/4)
+  setcps (130/60/4) -- nice at 130 too
   let melody = slow 4 $ note "g d a <d [g b] a [a b]>"
   d1 $ n "0 1 0 <3 3 ~ 3(3,8)>" # s "808bd" # gain 1.2
   d2 $ every 4 (fast "1 2") $ n " ~ 3 ~ 4" # s "realclaps"
   d3 $ every 1 (stut 4 0.9 (3/16))
-    $ struct "t(3,8)" $ note "-12" + melody
-    # s "supervibe" # hpf 1000 
+    $ struct "t(3,8)" $ note "<-24 -32 -12 -24> -24" + melody
+    # s "supervibe" # hpf 500 
     # velocity 0.7 # room 0.7
   d4 $ struct "t(4,8,1)" $ melody
     # s "flbass" # n 4 # legato 1
@@ -284,8 +285,28 @@ do
     # gain 0
   d6 $ slice 8 "<0 1 2> 3 2 <5!3 [1 2 3]> 4 3 7 6"
     $ loopAt 1 $ s "breaks125" # n "<3 4 7 5>" # legato 1 # hpf 500
+  --d1 silence
+  --d2 silence
+  --d3 silence
+  --d4 silence
+  --d5 silence
+  --d6 silence
 
-  
+hush
+
+-- 14:39 21-Dec-21
+
+do
+  setcps (84/60/4)
+  d1 $ every 8 (stut 8 0.7 (3/16))
+    $ slow 4 $ note "'min7" + note "0 2 3 7" # s "superpiano"
+    #  nudge (fast 8 "0.1 0.05 0")
+  d2 $ s "bev" # begin 0.3 # end (range 0.35 0.4 (slow 8 $sine))
+  d3 $ n "3 1 3 8" # s "tabla" #begin (fast 7 "0.1 0.2 0.0 0.3") # speed (fast 5 "-1 -0.5 0.5 1")
+  d4 $ slow 4 $ note "0 2 3 7" # s "flbass" # n 4 # speed 0.8
+    #  nudge (fast 7 "0.1 0.05 0")
+  d5 $ every 8 (slice 16 "16 .. 7 3 0")
+    $ loopAt 1 $ s "breaks157" # n 5
 
 import Sound.Tidal.Chords
 
