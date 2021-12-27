@@ -1,0 +1,36 @@
+-- 11:11 26-Dec-21
+-- accbot
+
+do
+  setcps (104/60/4)
+  --resetCycles
+  d1 $ every 4 (# speed 0.5)
+    $ every 4 (fast 2)
+    $ every 2 (off (1/8) (# crush (slow 7 "6 8 7 11")))
+    -- $ every 3 (off (3/8) (# distort 0.1))
+    $ every 4 (rotR (1/7))
+    $ every 5 (# vowel "a a e e a o o")
+    $ slice 128 "<10 8 9 11 13> 7 6 5 <4 [3 2] ~ 37> 3 1 0" $ s "chordbot" # n 0
+    # gain 1.5
+  d2 $ s "bd(<3!3 <4 5>>,8)" # room 0.1 # sz 0.2
+  d3 $ fast 2 $ s "~ [realclaps, cp]" # n (fast 7 "0 3 2 8") # gain 0.9 # room 0.1 # sz (slow 7 "0 0.2 0.1 0")
+  d4 $ every 4 (fast 2) $ fast 4 $ s "~ hc" # gain 0.6 # n (slow 4 "0 0 0 3")
+  d5 $ struct "t(3,8,1)" $ s "808lc" # room 0.2 # sz 0.3 # speed 0.8
+  d6 $ every 8 (fast 4)
+    $ every 3 (fast 2)
+    $ struct (slow 1 "t(3,8)")
+    $ note (slow 8 "d'min7'o g'min6 d'min7'io a'min7 bf'maj13'o c'maj'oo d'min7'o c'sus4'ii")
+    # stack [s "superpiano", s "supervibe"] # lpf (range 1000 3000 (slow 16 saw))
+    # velocity 0.6 # gain 0.85 # room 0.8 # sz (slow 9 "0.5 0.8 0.7 0.8 0.9 0.95")
+    # octer (-2) -- # ring 0.8 # ringf "10"
+  d1 silence
+  d2 silence
+  d3 silence
+  d4 silence
+  d5 silence
+  d6 silence
+
+
+hush
+
+  
