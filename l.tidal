@@ -323,6 +323,35 @@ do
   d4 silence
   d5 silence
 
+-- inciampati / napoil, italy
+
+-- hey, sorry it's my first time streaming and of course i was going to the test stream!
+-- enjoy!
+
+hush
+
+-- 10:45 24-Dec-21
+
+do
+  setcps (120/60/4)
+  d1 $ stut 7 0.6 (3/16)
+    $ arp "down up" (fast (2/3)
+                      $ note "<0 5 7 -1>"
+                      + note (slow 5 "-12 -7 -5")
+                      + note "<'min7'o 'min9'io>"
+                      -- + note "<'min11'io 'min7'io 'maj'ooo 'maj9'iio>"
+                    )
+    # stack [s "gtr" # distort (fast 7 "0.4 0 0.1 0.2")
+             # speed 2 # orbit 3
+            ,s "superpiano" # delay 0.95 # delayfb 0.8
+             # delayt (3/8) # orbit 2]
+    # room 0.3 # sz 0.9
+    -- # crush (fast 17 "16 16 7 4 16 9")
+
+hush
+
+
+
 import Sound.Tidal.Chords
 
 chordList
@@ -330,8 +359,3 @@ scaleList
 
 sock <- carabiner tidal 4 (0.29)
 
-
--- inciampati / napoil, italy
-
--- hey, sorry it's my first time streaming and of course i was going to the test stream!
--- enjoy!
