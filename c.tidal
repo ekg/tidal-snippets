@@ -52,11 +52,34 @@ do
     $ always (stut 7 0.5 (2/5))
     $ tuck $ chords # s "superpiano" # velocity 0.5 # gain 1.1 # room 0.3 # sz 0.97
     # leslie 0.01
+  d1 silence
+  --d2 silence
+  --d3 silence
 
+hush
 
-d1 $ "feel"
+-- 20:11 28-Dec-21
 
-d1 $ stack [ ghost $ sound "~ sn", sound "bd*2 [~ bd]" ]
+do
+  setcps (108/60/4)
+  let v x = s "lpviz" # n x
+  let swing = always (# nudge (fast 16 "0 <0.01 0.02 -0.01 0.01 -0.03>"))
+  d1 $ swing $ n "0 1 <3 2 7 8> 4" # "feel" # delay 0.5 # delayt "0.7 0.1 0.8 0.3"
+    # delayfb 0.3 # crush 4
+  d2 $ swing $ slice (slow 4 "8!7 <6 7>") "7 4 7 <3 1 0 5 7> 2 0" $ loopAt 1 $ v 224
+  d3 $ swing $ every' 8 1 (fast 4) $ every 2 (fast 2) $ every 3 ((1/9) <~) $ struct "t(<4!3 7>,8,2)"
+    $ stack [ghost $ s "808lc" # n 3 # speed (slow 8 "0!6 0.5 0.75") # distort 0.3
+            ,s "flbass" # n 3 # crush (fast 7 "6 7 8 7")]
+    # room 0.57 # sz 0.8 # octer (slow 8 "-1 1 1 -1 2 -1")
+  d4 $ s "808bd*4" # n 3 # gain 1.1
+  d5 $ s "outdoor" # n "<0 3 0 8>" # speed (slow 8 "<1 -1>")
+  d1 silence
+  d2 silence
+  d3 silence
+  d4 silence
+  d5 silence
+
+hush
 
 import Sound.Tidal.Chords
 
