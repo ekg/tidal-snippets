@@ -71,13 +71,68 @@ do
     $ stack [ghost $ s "808lc" # n 3 # speed (slow 8 "0!6 0.5 0.75") # distort 0.3
             ,s "flbass" # n 3 # crush (fast 7 "6 7 8 7")]
     # room 0.57 # sz 0.8 # octer (slow 8 "-1 1 1 -1 2 -1")
-  d4 $ s "808bd*4" # n 3 # gain 1.1
+  d4 $ s "cpu(3,7)" # n 0 # gain 2
   d5 $ s "outdoor" # n "<0 3 0 8>" # speed (slow 8 "<1 -1>")
+  --d1 silence
+  --d2 silence
+  --d3 silence
+  d4 silence
+  --d5 silence
+
+hush
+
+-- 08:49 29-Dec-21
+-- nate and freinz
+
+panic
+
+--  d2 $ sew "t(<3!3 5>,8)" (struct "t*8" $ stack [s "909", s "808bd" # n 4])
+--    (s "808hc*15" # n (slow 9 "0 3 2 8 1")) -- # speed (range (-1) 1 (slow 8 sine))) # gain 1.1
+
+
+do
+  setcps (120/60/4)
+  -- adding another chop to the front is wild
+  -- d1 $ chop (48 * 4) $ loopAt 48 $ chop (48 * 4) $ s "jamz" # n 0
+  let jamy x y = slice x y $ s "jamz" # n 0
+  let melody = note "<0!4 3!4 0!4 4!4 <~ -5!4 7!4> -1!4>"
+  let melody = note "-5"
+  d1 $ juxBy 0.1 ((|* speed "2 0.5").(# crush (fast 7 "6 5 6 6 4 7")))
+    $ every 3 (rev)
+    $ every 4 (fast 2)
+    $ every 5 (# legato 4)
+    $ melody
+    # jamy 192 (slow 5 "97 93 77 46 134 132 131 190 191")
+    -- $ s "jamz" # n 0
+    # leslie 0.4
+    # legato 2
+  d2 $ struct "t(2,7)" $ melody # jamy 64 "32"
+  d3 -- $ ghost
+    -- $ stut 7 0.3 (1/8)
+    $ struct "t(4,7,<0!3 3>)"
+    -- $ note "<0 4 5 7 12>"
+    -- + note "'min7"
+    -- $ note "'maj"
+    $ melody
+    # (slice "<191 190 188>" "57 <32 33 37> 11 187" $ s "jamz" # n 0)
+    -- # lpf 3000
+    # hpf (range 100 500 (slow 8 $ sine))
+    # room 0.8 # sz 0.95 # leslie 0.8
+  d4 $ struct "t(<3 0 0 2 0 3 2>,7)" $ melody # jamy 192 "<57 57 58 59>" # gain 1.1 # lpf (range 500 2000 (slow 16 sine))
+  -- # hpf 0 # room 0.8 # sz 0.8
+  d5 $ struct "t(13,14,12)" $ melody # jamy 192 "<73!3 [71 36 90 74] 75>" # legato 1
+    # hpf (fast 7 "3000 4000 1000 300 3500") # gain (range 1 1.2 (slow 9 sine)) # octer (fast 9 "0.5 0.66 0.3 -1")
+    # leslie 0.7
+  d6 $ every 8 (# speed "1") $ melody # jamy 192 "[186|187|188|[185 186]]" # gain 1.5 # speed "-1"
+  d7 $ struct "t(3,7,<2 2 3 4>)" $ melody # jamy 192 "20 21 <<24 44> 38 44 33>" # gain 1.2 --  # room 0.2 # sz 0.3
   d1 silence
   d2 silence
   d3 silence
-  d4 silence
-  d5 silence
+  --d4 silence
+  --d5 silence
+  d6 silence
+  --d7 silence
+
 
 hush
 
